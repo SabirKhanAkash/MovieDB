@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph.xml"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/movieFragment">
 
     <fragment
@@ -11,8 +11,8 @@
         android:label="fragment_movie"
         tools:layout="@layout/fragment_movie" />
     <fragment
-        android:id="@+id/TVShowFragment"
-        android:name="com.akash.moviedb.view.fragment.TVShowFragment"
+        android:id="@+id/tv_showFragment"
+        android:name="com.akash.moviedb.view.fragment.Tv_showFragment"
         android:label="fragment_tv_show"
         tools:layout="@layout/fragment_tv_show" />
     <fragment

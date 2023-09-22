@@ -6,31 +6,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.akash.moviedb.databinding.FragmentMovieBinding
+import com.akash.moviedb.databinding.FragmentTvShowBinding
 import com.akash.moviedb.utils.LoadingDialog
-import com.akash.moviedb.viewmodel.MovieViewModel
+import com.akash.moviedb.viewmodel.TVShowViewModel
 
-class MovieFragment : Fragment() {
+class Tv_showFragment : Fragment() {
 
 //    companion object {
-//        fun newInstance() = MovieFragment()
+//        fun newInstance() = TVShowFragment()
 //    }
-    val loadingDialog: LoadingDialog = LoadingDialog(this@MovieFragment)
-    private var binding: FragmentMovieBinding? = null
-    private lateinit var viewModel: MovieViewModel
+    val loadingDialog: LoadingDialog = LoadingDialog(this@Tv_showFragment)
+    private var binding: FragmentTvShowBinding? = null
+    private lateinit var viewModel: TVShowViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMovieBinding.inflate(layoutInflater)
-        Log.i("TAG","HELLO MOVIE")
+        binding = FragmentTvShowBinding.inflate(layoutInflater)
+        Log.i("TAG","HELLO TV SHOW")
         return binding!!.root
     }
 
 //    override fun onActivityCreated(savedInstanceState: Bundle?) {
 //        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
+//        viewModel = ViewModelProvider(this)[TVShowViewModel::class.java]
 //        // TODO: Use the ViewModel
 //    }
 
