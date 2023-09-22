@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_movie" />
     <fragment
         android:id="@+id/tv_showFragment"
-        android:name="com.akash.moviedb.view.fragment.Tv_showFragment"
+        android:name="com.akash.moviedb.view.fragment.TVShowFragment"
         android:label="fragment_tv_show"
         tools:layout="@layout/fragment_tv_show" />
     <fragment

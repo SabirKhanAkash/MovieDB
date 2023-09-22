@@ -6,16 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.akash.moviedb.databinding.FragmentTvShowBinding
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.viewmodel.TVShowViewModel
 
-class Tv_showFragment : Fragment() {
+class TVShowFragment : Fragment() {
 
-//    companion object {
-//        fun newInstance() = TVShowFragment()
-//    }
-    val loadingDialog: LoadingDialog = LoadingDialog(this@Tv_showFragment)
+    companion object {
+        fun newInstance() = TVShowFragment()
+    }
+    val loadingDialog: LoadingDialog = LoadingDialog(this@TVShowFragment)
     private var binding: FragmentTvShowBinding? = null
     private lateinit var viewModel: TVShowViewModel
 
@@ -28,10 +29,10 @@ class Tv_showFragment : Fragment() {
         return binding!!.root
     }
 
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this)[TVShowViewModel::class.java]
-//        // TODO: Use the ViewModel
-//    }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this)[TVShowViewModel::class.java]
+        // TODO: Use the ViewModel
+    }
 
 }
