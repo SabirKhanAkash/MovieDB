@@ -4,11 +4,12 @@ import com.akash.moviedb.model.SingleTVShowDetailsResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface SingleTVShowDetailsAPI {
-    @GET("3/tv/{id}?api_key={API_KEY}")
+    @GET("3/tv/{id}")
     fun getSingleTVShow(
         @Path("id") id: Int,
-        @Path("API_KEY") API_KEY: String,
-    ): Call<SingleTVShowDetailsResponse?>?
+        @Query("api_key") API_KEY: String,
+    ): Call<SingleTVShowDetailsResponse>
 }

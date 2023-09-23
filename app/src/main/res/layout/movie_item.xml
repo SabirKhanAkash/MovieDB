@@ -2,8 +2,7 @@
     android:id="@+id/movieLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:gravity="center"
+    android:layout_gravity="top"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -26,6 +25,8 @@
         android:gravity="center"
         android:maxLines="1"
         android:text="Movie Title"
-        android:textSize="16sp" />
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

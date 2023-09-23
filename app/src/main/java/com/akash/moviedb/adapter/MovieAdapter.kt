@@ -39,7 +39,6 @@ class MovieAdapter(private var movies: List<MovieDetails>) :
         Glide.with(holder.moviePoster)
             .load(posterUrl)
             .into(holder.moviePoster)
-//        holder.bind(movie)
     }
 
     override fun getItemCount(): Int {

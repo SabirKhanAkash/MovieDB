@@ -4,11 +4,12 @@ import com.akash.moviedb.model.SingleMovieDetailsResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface SingleMovieDetailsAPI {
-    @GET("3/movie/{id}?api_key={API_KEY}")
+    @GET("3/movie/{id}")
     fun getSingleMovie(
         @Path("id") id: Int,
-        @Path("API_KEY") API_KEY: String,
-    ): Call<SingleMovieDetailsResponse?>?
+        @Query("api_key") API_KEY: String,
+    ): Call<SingleMovieDetailsResponse>
 }

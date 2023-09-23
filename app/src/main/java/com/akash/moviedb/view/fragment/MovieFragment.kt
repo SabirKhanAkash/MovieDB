@@ -31,10 +31,9 @@ class MovieFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        loadingDialog.startFragmentLoading()
         binding = FragmentMovieBinding.inflate(layoutInflater)
         recyclerView = binding!!.recyclerView
-        viewModel = ViewModelProvider(this, MovieViewModelFactory()).get(MovieViewModel::class.java)
+        viewModel = ViewModelProvider(this, MovieViewModelFactory())[MovieViewModel::class.java]
         movieAdapter = MovieAdapter(emptyList())
 
         recyclerView.adapter = movieAdapter
@@ -64,8 +63,15 @@ class MovieFragment : Fragment() {
             }
         }
 
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                loadingDialog.startFragmentLoading()
+            } else {
+                loadingDialog.dismissLoading()
+            }
+        }
+
         viewModel.fetchTrendingMovies()
-        loadingDialog.dismissLoading()
         return binding!!.root
     }
 
