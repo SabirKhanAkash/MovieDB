@@ -1,6 +1,6 @@
 package com.akash.moviedb.model
 
-class Genre {
-    var id: Int = 0
-    lateinit var name: String
-}
+data class Genre (
+    var id: Int,
+    var name: String
+)

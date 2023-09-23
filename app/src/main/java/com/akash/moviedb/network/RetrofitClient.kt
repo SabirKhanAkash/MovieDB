@@ -1,7 +1,10 @@
 package com.akash.moviedb.network
 
 import com.akash.moviedb.BuildConfig
+import com.akash.moviedb.api.SingleMovieDetailsAPI
+import com.akash.moviedb.api.SingleTVShowDetailsAPI
 import com.akash.moviedb.api.TrendingMoviesAPI
+import com.akash.moviedb.api.TrendingTVShowsAPI
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Dispatcher
@@ -16,7 +19,7 @@ object RetrofitClient {
     private val builder = OkHttpClient.Builder()
     private val interceptor = HttpLoggingInterceptor()
 
-    fun getRetrofitInstance(): Retrofit {
+    private fun getRetrofitInstance(): Retrofit {
         val dispatcher = Dispatcher()
         dispatcher.maxRequests = 1
 
@@ -40,6 +43,18 @@ object RetrofitClient {
 
     fun getTrendingMoviesInterfaceService(): TrendingMoviesAPI {
         return getRetrofitInstance().create(TrendingMoviesAPI::class.java)
+    }
+
+    fun getTrendingTVShowsInterfaceService(): TrendingTVShowsAPI {
+        return getRetrofitInstance().create(TrendingTVShowsAPI::class.java)
+    }
+
+    fun getSingleMovieInterfaceService(): SingleMovieDetailsAPI {
+        return getRetrofitInstance().create(SingleMovieDetailsAPI::class.java)
+    }
+
+    fun getSingleTVShowInterfaceService(): SingleTVShowDetailsAPI {
+        return getRetrofitInstance().create(SingleTVShowDetailsAPI::class.java)
     }
 }
 

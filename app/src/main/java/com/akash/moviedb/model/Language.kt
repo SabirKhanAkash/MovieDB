@@ -1,7 +1,7 @@
 package com.akash.moviedb.model
 
-class Language {
-    lateinit var english_name: String
-    lateinit var name: String
-    lateinit var iso_639_1: String
-}
+data class Language (
+    var english_name: String,
+    var name: String,
+    var iso_639_1: String
+)
