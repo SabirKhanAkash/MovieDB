@@ -23,4 +23,12 @@ class MovieDetails {
     var budget: Int = 0
     lateinit var genres: ArrayList<Genre>
     var homepage: String? = null
+    var imdb_id: String? = null
+    lateinit var production_companies: ArrayList<ProductionCompany>
+    lateinit var production_countries: ArrayList<ProductionCountry>
+    var revenue: Int = 0
+    var runtime: Int = 0
+    lateinit var spoken_languages: ArrayList<Language>
+    var status: String? = null
+    var tagline: String? = null
 }
