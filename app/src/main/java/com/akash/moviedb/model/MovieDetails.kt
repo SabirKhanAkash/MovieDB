@@ -18,4 +18,9 @@ class MovieDetails {
     var video: Boolean = false
     var vote_average: Double = 0.0
     var vote_count: Int = 0
+
+    var belongs_to_collection: String? = null
+    var budget: Int = 0
+    lateinit var genres: ArrayList<Genre>
+    var homepage: String? = null
 }

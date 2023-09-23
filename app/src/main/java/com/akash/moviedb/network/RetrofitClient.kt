@@ -43,4 +43,7 @@ object RetrofitClient {
     }
 }
 
-
+//https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=c33832f707ec95387239c7014b8fb76b
+//https://api.themoviedb.org/3/trending/tv/day?language=en-US&api_key=c33832f707ec95387239c7014b8fb76b
+//https://api.themoviedb.org/3/movie/820609?api_key=c33832f707ec95387239c7014b8fb76b
+//https://api.themoviedb.org/3/tv/72710?api_key=c33832f707ec95387239c7014b8fb76b
