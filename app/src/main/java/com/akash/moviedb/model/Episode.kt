@@ -1,6 +1,6 @@
 package com.akash.moviedb.model
 
-data class Episode (
+data class Episode(
     var id: Int,
     var vote_average: Int,
     var vote_count: Int,

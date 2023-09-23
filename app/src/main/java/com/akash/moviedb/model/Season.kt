@@ -1,6 +1,6 @@
 package com.akash.moviedb.model
 
-data class Season (
+data class Season(
     var air_date: String,
     var episode_count: Int,
     var id: Int,

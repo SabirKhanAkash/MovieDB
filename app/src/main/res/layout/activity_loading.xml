@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:background="@android:color/transparent">
 
@@ -20,19 +20,19 @@
             android:layout_height="80dp"
             android:layout_gravity="center">
 
-<!--            <com.agrawalsuneet.loaderspack.loaders.CurvesLoader-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:gravity="center"-->
-<!--                app:curves_animDuration="800"-->
-<!--                app:curves_curveColor="@color/blue_btn_color"-->
-<!--                app:curves_curveSweepAngle="180"-->
-<!--                app:curves_curveWidth="3.5dp"-->
-<!--                app:curves_distanceBetweenCurves="4dp"-->
-<!--                app:curves_interpolator="@android:anim/linear_interpolator"-->
-<!--                app:curves_noOfCurves="5"-->
-<!--                app:curves_outermostCurveRadius="30dp" />-->
+            <com.agrawalsuneet.loaderspack.loaders.CurvesLoader
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:curves_animDuration="800"
+                app:curves_curveColor="@color/blue_btn_color"
+                app:curves_curveSweepAngle="180"
+                app:curves_curveWidth="3.5dp"
+                app:curves_distanceBetweenCurves="4dp"
+                app:curves_interpolator="@android:anim/linear_interpolator"
+                app:curves_noOfCurves="5"
+                app:curves_outermostCurveRadius="30dp" />
 
         </FrameLayout>
 

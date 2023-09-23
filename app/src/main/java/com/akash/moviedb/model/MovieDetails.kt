@@ -1,8 +1,6 @@
 package com.akash.moviedb.model
 
-import java.util.ArrayList
-
-data class MovieDetails (
+data class MovieDetails(
     var adult: Boolean,
     var backdrop_path: String,
     var id: Int,

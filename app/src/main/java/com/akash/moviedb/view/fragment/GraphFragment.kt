@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.akash.moviedb.R
 import com.akash.moviedb.databinding.FragmentGraphBinding
-import com.akash.moviedb.databinding.FragmentMovieBinding
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.viewmodel.GraphViewModel
 
@@ -28,7 +26,7 @@ class GraphFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         loadingDialog.startFragmentLoading()
-        Log.i("TAG","HELLO GRAPH")
+        Log.i("TAG", "HELLO GRAPH")
         loadingDialog.dismissLoading()
         binding = FragmentGraphBinding.inflate(layoutInflater)
         return binding!!.root

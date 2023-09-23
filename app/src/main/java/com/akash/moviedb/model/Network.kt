@@ -1,6 +1,6 @@
 package com.akash.moviedb.model
 
-data class Network (
+data class Network(
     var id: Int,
     var logo_path: String,
     var name: String,

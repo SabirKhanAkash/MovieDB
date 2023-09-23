@@ -16,6 +16,7 @@ class TVShowFragment : Fragment() {
     companion object {
         fun newInstance() = TVShowFragment()
     }
+
     val loadingDialog: LoadingDialog = LoadingDialog(this@TVShowFragment)
     private var binding: FragmentTvShowBinding? = null
     private lateinit var viewModel: TVShowViewModel
@@ -25,7 +26,7 @@ class TVShowFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTvShowBinding.inflate(layoutInflater)
-        Log.i("TAG","HELLO TV SHOW")
+        Log.i("TAG", "HELLO TV SHOW")
         return binding!!.root
     }
 

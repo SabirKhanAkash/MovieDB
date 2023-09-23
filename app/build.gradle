@@ -81,7 +81,12 @@ dependencies {
     /**
      * For Loading Animation
      */
-//    implementation 'com.agrawalsuneet.androidlibs:loaderspack:1.2.3'
+    implementation 'com.agrawalsuneet.androidlibs:loaderspack:1.2.3'
+
+    /**
+     * For Image
+     */
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
 
     /**
      * Default Pre-installed
