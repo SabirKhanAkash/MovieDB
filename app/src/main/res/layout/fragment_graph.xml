@@ -6,9 +6,27 @@
     tools:context=".view.fragment.GraphFragment">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left"
+        android:layout_margin="10sp"
+        android:text="Close"
+        android:textColor="@color/black"
+        android:textStyle="italic" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_margin="20sp"
+        android:text="Timestamp"
+        android:textColor="@color/black"
+        android:textStyle="italic" />
+
+    <com.akash.moviedb.view.activity.CustomGraphView
+        android:id="@+id/customGraphView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="THIS IS GRAPH FRAGMENT" />
+        android:layout_margin="50sp" />
 
 </FrameLayout>

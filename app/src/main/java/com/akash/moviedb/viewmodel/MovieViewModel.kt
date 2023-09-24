@@ -23,9 +23,11 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
                     }
                     moviesLiveData.postValue(GenericApiResponse.Success(trendingMovies))
                 } else {
+                    isLoading.postValue(false)
                     moviesLiveData.postValue(GenericApiResponse.Error("Oops! Something went wrong. :("))
                 }
             } catch (e: Exception) {
+                isLoading.postValue(false)
                 moviesLiveData.postValue(GenericApiResponse.Error(e.message))
             }
         }

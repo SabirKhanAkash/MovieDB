@@ -47,6 +47,6 @@ class LoadingDialog {
     }
 
     fun dismissLoading() {
-        builder!!.dismiss()
+        builder?.dismiss()
     }
 }

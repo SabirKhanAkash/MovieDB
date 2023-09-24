@@ -4,9 +4,7 @@ import GenericApiResponse
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akash.moviedb.model.MovieDetails
 import com.akash.moviedb.model.TVShowDetails
-import com.akash.moviedb.repository.MovieRepository
 import com.akash.moviedb.repository.TVRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,9 +25,11 @@ class TVShowViewModel(private val repository: TVRepository) : ViewModel() {
                     }
                     tvLiveData.postValue(GenericApiResponse.Success(trendingTVShows))
                 } else {
+                    isLoading.postValue(false)
                     tvLiveData.postValue(GenericApiResponse.Error("Oops! Something went wrong. :("))
                 }
             } catch (e: Exception) {
+                isLoading.postValue(false)
                 tvLiveData.postValue(GenericApiResponse.Error(e.message))
             }
         }

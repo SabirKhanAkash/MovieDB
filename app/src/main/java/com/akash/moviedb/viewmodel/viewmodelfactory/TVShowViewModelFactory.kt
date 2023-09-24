@@ -1,10 +1,8 @@
 package com.akash.moviedb.viewmodel.viewmodelfactory
 
-import MovieViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.akash.moviedb.network.RetrofitClient
-import com.akash.moviedb.repository.MovieRepository
 import com.akash.moviedb.repository.TVRepository
 import com.akash.moviedb.viewmodel.TVShowViewModel
 

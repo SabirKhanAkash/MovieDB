@@ -1,19 +1,17 @@
 package com.akash.moviedb.view.fragment
 
+import GenericApiResponse
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.akash.moviedb.adapter.MovieAdapter
 import com.akash.moviedb.adapter.TVAdapter
 import com.akash.moviedb.databinding.FragmentTvShowBinding
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.viewmodel.TVShowViewModel
-import com.akash.moviedb.viewmodel.viewmodelfactory.MovieViewModelFactory
 import com.akash.moviedb.viewmodel.viewmodelfactory.TVShowViewModelFactory
 import showTopToast
 
