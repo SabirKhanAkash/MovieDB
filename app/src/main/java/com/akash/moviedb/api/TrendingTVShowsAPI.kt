@@ -11,5 +11,5 @@ interface TrendingTVShowsAPI {
     fun getTVShows(
         @Query("api_key") API_KEY: String,
         @Query("page") page_no: Int
-    ): Call<TrendingTVShowsResponse?>?
+    ): Call<TrendingTVShowsResponse>
 }

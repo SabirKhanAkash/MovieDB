@@ -32,7 +32,7 @@ class MovieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMovieBinding.inflate(layoutInflater)
-        recyclerView = binding!!.recyclerView
+        recyclerView = binding!!.movieRecyclerView
         viewModel = ViewModelProvider(this, MovieViewModelFactory())[MovieViewModel::class.java]
         movieAdapter = MovieAdapter(emptyList())
 
