@@ -1,5 +1,7 @@
 package com.akash.moviedb.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.BuildConfig
 import com.akash.moviedb.R
 import com.akash.moviedb.model.MovieDetails
+import com.akash.moviedb.utils.SharedPref
+import com.akash.moviedb.view.activity.SingleMovieActivity
 import com.bumptech.glide.Glide
 
-class MovieAdapter(private var movies: List<MovieDetails>) :
+class MovieAdapter(private val context: Context, private var movies: List<MovieDetails>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+    private val sharedPref: SharedPref = SharedPref()
     fun updateData(trendingMovies: List<MovieDetails>) {
         movies = trendingMovies
         notifyDataSetChanged()
@@ -39,6 +43,13 @@ class MovieAdapter(private var movies: List<MovieDetails>) :
         Glide.with(holder.moviePoster)
             .load(posterUrl)
             .into(holder.moviePoster)
+
+        holder.movieLayout.setOnClickListener {
+            val selectedMovieId = movie.id
+            val intent = Intent(context, SingleMovieActivity::class.java)
+            sharedPref.setInt(context, "selectedMovieId", selectedMovieId)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -34,7 +34,7 @@ class MovieFragment : Fragment() {
         binding = FragmentMovieBinding.inflate(layoutInflater)
         recyclerView = binding!!.movieRecyclerView
         viewModel = ViewModelProvider(this, MovieViewModelFactory())[MovieViewModel::class.java]
-        movieAdapter = MovieAdapter(emptyList())
+        movieAdapter = MovieAdapter(requireContext(), emptyList())
 
         recyclerView.adapter = movieAdapter
 
