@@ -35,10 +35,11 @@ class SingleMovieActivity : AppCompatActivity() {
         genreView = binding!!.genreView
         genreListAdapter = GenreListAdapter(applicationContext, emptyList())
         genreView.adapter = genreListAdapter
-        viewModel.singleMovieLiveData.observe(this) { result ->
+        viewModel.singleMovieLiveData.observe(this@SingleMovieActivity) { result ->
             when (result) {
                 is GenericApiResponse.Success -> {
-                    val resultData = result.data
+                    val resultData = result.data[0]
+                    var xx = 0
                     Glide.with(applicationContext).load(BuildConfig.POSTER_BASE_URL + resultData.backdrop_path).into(
                         binding!!.moviePoster)
                     binding!!.movieTitle.text = resultData.original_title
@@ -48,7 +49,6 @@ class SingleMovieActivity : AppCompatActivity() {
                     binding!!.language.text = resultData.original_language
                     binding!!.releaseDate.text = resultData.release_date
                     binding!!.movieOverview.text = resultData.overview
-                    genreListAdapter.updateData(resultData.genres)
                 }
 
                 is GenericApiResponse.Error -> {
@@ -75,5 +75,6 @@ class SingleMovieActivity : AppCompatActivity() {
         }
 
         viewModel.fetchSingleMovieDetails(selectedMovieId)
+        sharedPref.clearDataOnKey(applicationContext, "selectedMovieId")
     }
 }

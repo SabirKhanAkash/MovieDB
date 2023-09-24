@@ -1,3 +1,4 @@
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SingleMovieViewModel(private val repository: SingleMovieRepository) : ViewModel() {
-    val singleMovieLiveData: MutableLiveData<GenericApiResponse<MovieDetails>> = MutableLiveData()
+    val singleMovieLiveData: MutableLiveData<GenericApiResponse<List<MovieDetails>>>  = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun fetchSingleMovieDetails(selectedMovieId: Int) {
@@ -16,8 +17,9 @@ class SingleMovieViewModel(private val repository: SingleMovieRepository) : View
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = repository.getSingleMovie(selectedMovieId).execute()
+                Log.d("meo", response.toString())
                 if (response.isSuccessful) {
-                    val singleMovieDetails: MovieDetails = response.body()!!.movieDetails
+                    val singleMovieDetails: List<MovieDetails> = response.body()!!.movieDetails
                     singleMovieLiveData.postValue(GenericApiResponse.Success(singleMovieDetails))
                     isLoading.postValue(false)
                 } else {
