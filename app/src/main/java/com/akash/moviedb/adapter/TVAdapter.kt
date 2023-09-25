@@ -1,5 +1,6 @@
 package com.akash.moviedb.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,9 @@ import com.akash.moviedb.BuildConfig
 import com.akash.moviedb.R
 import com.akash.moviedb.model.TVShowDetails
 import com.bumptech.glide.Glide
+import showTopToast
 
-class TVAdapter(private var tv_shows: List<TVShowDetails>) :
+class TVAdapter(private val context: Context, private var tv_shows: List<TVShowDetails>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun updateData(trendingTVShows: List<TVShowDetails>) {
@@ -39,6 +41,14 @@ class TVAdapter(private var tv_shows: List<TVShowDetails>) :
         Glide.with(holder.moviePoster)
             .load(posterUrl)
             .into(holder.moviePoster)
+        holder.movieLayout.setOnClickListener {
+            showTopToast(
+                context,
+                "Sorry! Could not finish this feature on time :(",
+                "long",
+                "negative"
+            )
+        }
     }
 
     override fun getItemCount(): Int {

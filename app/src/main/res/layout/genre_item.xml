@@ -1,20 +1,19 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp">
 
     <TextView
-        android:padding="6sp"
-        android:text="GenreName"
+        android:id="@+id/genreName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/genre_bg"
-        android:textStyle="normal"
-        android:textSize="12sp"
-        android:textColor="@color/black"
         android:fontFamily="@font/inter_regular"
-        android:id="@+id/genreName"/>
+        android:padding="6sp"
+        android:text="GenreName"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="normal" />
 
 </LinearLayout>

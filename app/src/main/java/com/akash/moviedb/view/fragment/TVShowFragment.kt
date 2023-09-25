@@ -35,7 +35,7 @@ class TVShowFragment : Fragment() {
 
         recyclerView = binding!!.tvRecyclerView
         viewModel = ViewModelProvider(this, TVShowViewModelFactory())[TVShowViewModel::class.java]
-        tvAdapter = TVAdapter(emptyList())
+        tvAdapter = TVAdapter(requireContext(), emptyList())
 
         recyclerView.adapter = tvAdapter
 

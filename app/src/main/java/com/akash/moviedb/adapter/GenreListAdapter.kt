@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.R
 import com.akash.moviedb.model.Genre
-import com.akash.moviedb.model.MovieDetails
 
 class GenreListAdapter(private var context: Context, private var genreList: List<Genre>) :
     RecyclerView.Adapter<GenreListAdapter.ViewHolder>() {

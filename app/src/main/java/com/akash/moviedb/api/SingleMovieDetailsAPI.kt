@@ -1,6 +1,6 @@
 package com.akash.moviedb.api
 
-import com.akash.moviedb.model.SingleMovieDetailsResponse
+import com.akash.moviedb.model.MovieDetails
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,5 +11,5 @@ interface SingleMovieDetailsAPI {
     fun getSingleMovie(
         @Path("id") id: Int,
         @Query("api_key") API_KEY: String,
-    ): Call<SingleMovieDetailsResponse>
+    ): Call<MovieDetails>
 }

@@ -6,68 +6,68 @@
     tools:context=".view.fragment.GraphFragment">
 
     <TextView
-        android:fontFamily="@font/inter_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
         android:layout_margin="20sp"
+        android:fontFamily="@font/inter_regular"
         android:text="Max Close: 23.42\nTimestamp: 2023-08-25 13:00:00"
-        android:textSize="10sp"
         android:textColor="@color/black"
+        android:textSize="10sp"
         android:textStyle="bold" />
 
     <TextView
-        android:fontFamily="@font/inter_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|left"
         android:layout_margin="15sp"
+        android:fontFamily="@font/inter_regular"
         android:paddingStart="25sp"
         android:text="25"
-        android:textSize="10sp"
         android:textColor="@color/black"
+        android:textSize="10sp"
         android:textStyle="normal" />
 
     <TextView
-        android:fontFamily="@font/inter_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|left"
         android:layout_margin="10sp"
+        android:fontFamily="@font/inter_regular"
         android:text="Close"
         android:textColor="@color/black"
         android:textStyle="italic|bold" />
 
     <TextView
-        android:fontFamily="@font/inter_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:layout_margin="20sp"
+        android:fontFamily="@font/inter_regular"
         android:text="Timestamp"
         android:textColor="@color/black"
         android:textStyle="italic|bold" />
 
     <TextView
-        android:fontFamily="@font/inter_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left|bottom"
         android:layout_margin="20sp"
-        android:textSize="10sp"
+        android:fontFamily="@font/inter_regular"
         android:text="2023-08-28 19:00:00"
         android:textColor="@color/black"
+        android:textSize="10sp"
         android:textStyle="normal" />
 
     <TextView
-        android:fontFamily="@font/inter_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
         android:layout_margin="20sp"
-        android:textSize="10sp"
+        android:fontFamily="@font/inter_regular"
         android:text="2023-08-14 10:00:00"
         android:textColor="@color/black"
+        android:textSize="10sp"
         android:textStyle="normal" />
 
     <com.akash.moviedb.view.activity.CustomGraphView

@@ -1,5 +1,5 @@
 package com.akash.moviedb.model
 
 data class SingleMovieDetailsResponse(
-    var movieDetails: MovieDetails
+    var movieDetails: MovieDetails?
 )

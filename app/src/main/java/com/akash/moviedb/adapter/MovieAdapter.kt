@@ -47,7 +47,7 @@ class MovieAdapter(private val context: Context, private var movies: List<MovieD
         holder.movieLayout.setOnClickListener {
             val selectedMovieId = movie.id
             val intent = Intent(context, SingleMovieActivity::class.java)
-            sharedPref.setInt(context, "selectedMovieId", selectedMovieId)
+            sharedPref.setInt(context, "selectedMovieId", selectedMovieId!!)
             context.startActivity(intent)
         }
     }

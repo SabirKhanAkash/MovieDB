@@ -1,19 +1,16 @@
 package com.akash.moviedb.view.activity
 
+import GenericApiResponse
 import SingleMovieViewModel
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.BuildConfig
 import com.akash.moviedb.adapter.GenreListAdapter
-import com.akash.moviedb.adapter.MovieAdapter
 import com.akash.moviedb.databinding.ActivitySingleMovieBinding
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.utils.SharedPref
-import com.akash.moviedb.viewmodel.viewmodelfactory.MovieViewModelFactory
 import com.akash.moviedb.viewmodel.viewmodelfactory.SingleMovieViewModelFactory
 import com.bumptech.glide.Glide
 import showTopToast
@@ -31,7 +28,8 @@ class SingleMovieActivity : AppCompatActivity() {
         setContentView(binding!!.root)
 
         val selectedMovieId = sharedPref.getInt(applicationContext, "selectedMovieId")
-        viewModel = ViewModelProvider(this, SingleMovieViewModelFactory())[SingleMovieViewModel::class.java]
+        viewModel =
+            ViewModelProvider(this, SingleMovieViewModelFactory())[SingleMovieViewModel::class.java]
         genreView = binding!!.genreView
         genreListAdapter = GenreListAdapter(applicationContext, emptyList())
         genreView.adapter = genreListAdapter
@@ -40,9 +38,11 @@ class SingleMovieActivity : AppCompatActivity() {
                 is GenericApiResponse.Success -> {
                     val resultData = result.data
                     var xx = 0
-                    genreListAdapter.updateData(resultData.genres)
-                    Glide.with(applicationContext).load(BuildConfig.POSTER_BASE_URL + resultData.backdrop_path).into(
-                        binding!!.moviePoster)
+                    genreListAdapter.updateData(resultData.genres!!)
+                    Glide.with(applicationContext)
+                        .load(BuildConfig.POSTER_BASE_URL + resultData.backdrop_path).into(
+                            binding!!.moviePoster
+                        )
                     binding!!.movieTitle.text = resultData.original_title
                     binding!!.tagline.text = resultData.tagline
                     binding!!.popularity.text = "Popularity Score: ${resultData.popularity}"
