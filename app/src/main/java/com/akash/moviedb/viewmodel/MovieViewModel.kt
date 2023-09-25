@@ -20,8 +20,8 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
                     val trendingMovies: List<MovieDetails> = response.body()!!.results
                     if (trendingMovies.isNotEmpty()) {
                         isLoading.postValue(false)
+                        moviesLiveData.postValue(GenericApiResponse.Success(trendingMovies))
                     }
-                    moviesLiveData.postValue(GenericApiResponse.Success(trendingMovies))
                 } else {
                     isLoading.postValue(false)
                     moviesLiveData.postValue(GenericApiResponse.Error("Oops! Something went wrong. :("))

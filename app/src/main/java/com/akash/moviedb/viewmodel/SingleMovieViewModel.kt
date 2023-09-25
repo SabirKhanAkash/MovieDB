@@ -5,23 +5,37 @@ import androidx.lifecycle.viewModelScope
 import com.akash.moviedb.model.MovieDetails
 import com.akash.moviedb.repository.MovieRepository
 import com.akash.moviedb.repository.SingleMovieRepository
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SingleMovieViewModel(private val repository: SingleMovieRepository) : ViewModel() {
-    val singleMovieLiveData: MutableLiveData<GenericApiResponse<List<MovieDetails>>>  = MutableLiveData()
+    val singleMovieLiveData: MutableLiveData<GenericApiResponse<MovieDetails>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun fetchSingleMovieDetails(selectedMovieId: Int) {
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                
                 val response = repository.getSingleMovie(selectedMovieId).execute()
-                Log.d("meo", response.toString())
+                val responseBodyString = response.body()?.toString()
+                Log.d("Response", responseBodyString ?: "Response body is null")
+                try {
+                    val singleMovieDetails: MovieDetails = Gson().fromJson(responseBodyString, MovieDetails::class.java)
+                    Log.d("Response", "Successfully deserialized: $singleMovieDetails")
+                }
+                catch (e: Exception) {
+                    Log.e("Response", "Error during deserialization", e)
+                }
                 if (response.isSuccessful) {
-                    val singleMovieDetails: List<MovieDetails> = response.body()!!.movieDetails
-                    singleMovieLiveData.postValue(GenericApiResponse.Success(singleMovieDetails))
-                    isLoading.postValue(false)
+                    val singleMovieDetails: MovieDetails? = response.body()?.movieDetails
+                    if (singleMovieDetails != null) {
+                        singleMovieLiveData.postValue(GenericApiResponse.Success(singleMovieDetails))
+                    } else {
+                        isLoading.postValue(false)
+                        singleMovieLiveData.postValue(GenericApiResponse.Error("Movie details are null"))
+                    }
                 } else {
                     isLoading.postValue(false)
                     singleMovieLiveData.postValue(GenericApiResponse.Error("Oops! Something went wrong. :("))
@@ -32,4 +46,5 @@ class SingleMovieViewModel(private val repository: SingleMovieRepository) : View
             }
         }
     }
+
 }

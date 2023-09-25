@@ -7,7 +7,7 @@
 
     <TextView
         android:padding="6sp"
-        android:text="Mystery"
+        android:text="GenreName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/genre_bg"

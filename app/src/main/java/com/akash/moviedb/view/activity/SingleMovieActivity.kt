@@ -38,8 +38,9 @@ class SingleMovieActivity : AppCompatActivity() {
         viewModel.singleMovieLiveData.observe(this@SingleMovieActivity) { result ->
             when (result) {
                 is GenericApiResponse.Success -> {
-                    val resultData = result.data[0]
+                    val resultData = result.data
                     var xx = 0
+                    genreListAdapter.updateData(resultData.genres)
                     Glide.with(applicationContext).load(BuildConfig.POSTER_BASE_URL + resultData.backdrop_path).into(
                         binding!!.moviePoster)
                     binding!!.movieTitle.text = resultData.original_title
@@ -75,6 +76,6 @@ class SingleMovieActivity : AppCompatActivity() {
         }
 
         viewModel.fetchSingleMovieDetails(selectedMovieId)
-        sharedPref.clearDataOnKey(applicationContext, "selectedMovieId")
+//        sharedPref.clearDataOnKey(applicationContext, "selectedMovieId")
     }
 }

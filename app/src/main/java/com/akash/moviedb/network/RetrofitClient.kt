@@ -28,13 +28,13 @@ object RetrofitClient {
         builder.readTimeout(50, TimeUnit.SECONDS)
         builder.writeTimeout(50, TimeUnit.SECONDS)
 
-        val gson: Gson = GsonBuilder().setLenient().create()
+        val gson: Gson = GsonBuilder().setLenient().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         builder.addInterceptor(interceptor)
 
         if (retrofit == null) {
             retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(builder.dispatcher(dispatcher).build()).build()
         }
 

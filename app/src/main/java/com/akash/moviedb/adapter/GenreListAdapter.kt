@@ -25,7 +25,7 @@ class GenreListAdapter(private var context: Context, private var genreList: List
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = genreList[position]
-
+        holder.genreName.text = data.name
     }
 
     override fun getItemCount(): Int {
