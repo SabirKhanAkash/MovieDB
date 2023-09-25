@@ -2,7 +2,7 @@ package com.akash.moviedb.model
 
 data class Episode(
     var id: Int,
-    var vote_average: Int,
+    var vote_average: Double,
     var vote_count: Int,
     var name: String,
     var overview: String,

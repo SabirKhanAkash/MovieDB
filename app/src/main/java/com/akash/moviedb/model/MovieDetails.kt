@@ -17,7 +17,7 @@ data class MovieDetails(
     var vote_average: Double,
     var vote_count: Int,
 
-    var belongs_to_collection: String,
+    var belongs_to_collection: BelongsToCollection,
     var budget: Int,
     var genres: ArrayList<Genre>,
     var homepage: String,

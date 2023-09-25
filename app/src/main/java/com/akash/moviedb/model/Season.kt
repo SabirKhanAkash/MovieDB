@@ -5,7 +5,7 @@ data class Season(
     var episode_count: Int,
     var id: Int,
     var season_number: Int,
-    var vote_average: Int,
+    var vote_average: Double,
     var name: String,
     var overview: String,
     var poster_path: String

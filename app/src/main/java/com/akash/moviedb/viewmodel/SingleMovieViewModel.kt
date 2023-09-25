@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akash.moviedb.model.MovieDetails
 import com.akash.moviedb.repository.SingleMovieRepository
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -18,13 +19,13 @@ class SingleMovieViewModel(private val repository: SingleMovieRepository) : View
                 val response = repository.getSingleMovie(selectedMovieId).execute()
                 val responseBodyString = response.body()?.toString()
                 Log.d("Response", responseBodyString ?: "Response body is null")
-//                try {
-//                    val singleMovieDetails: MovieDetails = Gson().fromJson(responseBodyString, MovieDetails::class.java)
-//                    Log.d("Response", "Successfully deserialized: $singleMovieDetails")
-//                }
-//                catch (e: Exception) {
-//                    Log.e("Response", "Error during deserialization", e)
-//                }
+                try {
+                    val singleMovieDetails: MovieDetails = Gson().fromJson(responseBodyString, MovieDetails::class.java)
+                    Log.d("Response", "Successfully deserialized: $singleMovieDetails")
+                }
+                catch (e: Exception) {
+                    Log.e("Response", "Error during deserialization", e)
+                }
                 if (response.isSuccessful) {
                     val singleMovieDetails: MovieDetails? = response.body()
                     if (singleMovieDetails != null) {
