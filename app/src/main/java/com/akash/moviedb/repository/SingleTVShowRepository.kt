@@ -1,9 +1,7 @@
 package com.akash.moviedb.repository
 
 import com.akash.moviedb.BuildConfig
-import com.akash.moviedb.api.SingleMovieDetailsAPI
 import com.akash.moviedb.api.SingleTVShowDetailsAPI
-import com.akash.moviedb.model.MovieDetails
 import com.akash.moviedb.model.TVShowDetails
 import retrofit2.Call
 

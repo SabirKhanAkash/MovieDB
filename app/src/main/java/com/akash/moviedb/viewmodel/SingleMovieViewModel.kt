@@ -20,10 +20,10 @@ class SingleMovieViewModel(private val repository: SingleMovieRepository) : View
                 val responseBodyString = response.body()?.toString()
                 Log.d("Response", responseBodyString ?: "Response body is null")
                 try {
-                    val singleMovieDetails: MovieDetails = Gson().fromJson(responseBodyString, MovieDetails::class.java)
+                    val singleMovieDetails: MovieDetails =
+                        Gson().fromJson(responseBodyString, MovieDetails::class.java)
                     Log.d("Response", "Successfully deserialized: $singleMovieDetails")
-                }
-                catch (e: Exception) {
+                } catch (e: Exception) {
                     Log.e("Response", "Error during deserialization", e)
                 }
                 if (response.isSuccessful) {

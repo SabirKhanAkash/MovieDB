@@ -20,7 +20,7 @@
         tools:targetApi="31">
         <activity
             android:name=".view.activity.SingleTVActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".view.activity.SingleMovieActivity"
             android:exported="false" />

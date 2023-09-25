@@ -13,10 +13,8 @@ import com.akash.moviedb.BuildConfig
 import com.akash.moviedb.R
 import com.akash.moviedb.model.TVShowDetails
 import com.akash.moviedb.utils.SharedPref
-import com.akash.moviedb.view.activity.SingleMovieActivity
 import com.akash.moviedb.view.activity.SingleTVActivity
 import com.bumptech.glide.Glide
-import showTopToast
 
 class TVAdapter(private val context: Context, private var tv_shows: List<TVShowDetails>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

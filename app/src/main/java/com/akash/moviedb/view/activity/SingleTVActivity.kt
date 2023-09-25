@@ -50,7 +50,12 @@ class SingleTVActivity : AppCompatActivity() {
                     binding!!.movieTitle.text = resultData.original_name
                     binding!!.type.text = resultData.type
                     binding!!.popularity.text = "Popularity Score: ${resultData.popularity}"
-                    binding!!.runtime.text = (resultData.episode_run_time.toString()) == "[]" ? "N/A" :
+                    if (resultData.episode_run_time.toString() == "[]")
+                        binding!!.runtime.text = "N/A"
+                    else
+                        binding!!.runtime.text =
+                            (resultData.episode_run_time.toString()).replace("[", "")
+                                .replace("]", "") + " min"
                     binding!!.language.text = resultData.original_language
                     binding!!.noOfSeason.text = resultData.number_of_seasons.toString()
                     binding!!.noOfEps.text = resultData.number_of_episodes.toString()

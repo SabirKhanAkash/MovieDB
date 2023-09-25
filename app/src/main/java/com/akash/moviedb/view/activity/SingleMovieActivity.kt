@@ -45,7 +45,7 @@ class SingleMovieActivity : AppCompatActivity() {
                     binding!!.movieTitle.text = resultData.original_title
                     binding!!.tagline.text = resultData.tagline
                     binding!!.popularity.text = "Popularity Score: ${resultData.popularity}"
-                    binding!!.runtime.text = resultData.runtime.toString()
+                    binding!!.runtime.text = resultData.runtime.toString() + " min"
                     binding!!.language.text = resultData.original_language
                     binding!!.releaseDate.text = resultData.release_date
                     binding!!.movieOverview.text = resultData.overview

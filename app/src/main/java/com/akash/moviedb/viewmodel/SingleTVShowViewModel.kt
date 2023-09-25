@@ -2,9 +2,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akash.moviedb.model.MovieDetails
 import com.akash.moviedb.model.TVShowDetails
-import com.akash.moviedb.repository.SingleMovieRepository
 import com.akash.moviedb.repository.SingleTVShowRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -22,10 +20,10 @@ class SingleTVShowViewModel(private val repository: SingleTVShowRepository) : Vi
                 val responseBodyString = response.body()?.toString()
                 Log.d("Response", responseBodyString ?: "Response body is null")
                 try {
-                    val singleMovieDetails: TVShowDetails = Gson().fromJson(responseBodyString, TVShowDetails::class.java)
+                    val singleMovieDetails: TVShowDetails =
+                        Gson().fromJson(responseBodyString, TVShowDetails::class.java)
                     Log.d("Response", "Successfully deserialized: $singleMovieDetails")
-                }
-                catch (e: Exception) {
+                } catch (e: Exception) {
                     Log.e("Response", "Error during deserialization", e)
                 }
                 if (response.isSuccessful) {

@@ -74,8 +74,8 @@
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="5sp"
                     android:columnCount="3"
+                    android:paddingTop="5sp"
                     android:rowCount="1">
 
                     <androidx.cardview.widget.CardView
