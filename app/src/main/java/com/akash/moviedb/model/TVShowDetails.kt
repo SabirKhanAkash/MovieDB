@@ -18,7 +18,8 @@ data class TVShowDetails(
     var origin_country: ArrayList<String>,
 
     var created_by: ArrayList<TVSeriesCreator>,
-    var genre: ArrayList<Genre>,
+    var episode_run_time: ArrayList<Duration>?,
+    var genres: ArrayList<Genre>,
     var homepage: String,
     var in_production: Boolean,
     var languages: ArrayList<String>,

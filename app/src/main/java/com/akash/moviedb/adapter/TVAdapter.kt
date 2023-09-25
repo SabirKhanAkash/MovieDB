@@ -1,6 +1,7 @@
 package com.akash.moviedb.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.BuildConfig
 import com.akash.moviedb.R
 import com.akash.moviedb.model.TVShowDetails
+import com.akash.moviedb.utils.SharedPref
+import com.akash.moviedb.view.activity.SingleMovieActivity
+import com.akash.moviedb.view.activity.SingleTVActivity
 import com.bumptech.glide.Glide
 import showTopToast
 
 class TVAdapter(private val context: Context, private var tv_shows: List<TVShowDetails>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+    private val sharedPref: SharedPref = SharedPref()
     fun updateData(trendingTVShows: List<TVShowDetails>) {
         tv_shows = trendingTVShows
         notifyDataSetChanged()
@@ -42,12 +46,10 @@ class TVAdapter(private val context: Context, private var tv_shows: List<TVShowD
             .load(posterUrl)
             .into(holder.moviePoster)
         holder.movieLayout.setOnClickListener {
-            showTopToast(
-                context,
-                "Sorry! Could not finish this feature on time :(",
-                "long",
-                "negative"
-            )
+            val selectedTVId = tv_show.id
+            val intent = Intent(context, SingleTVActivity::class.java)
+            sharedPref.setInt(context, "selectedTVId", selectedTVId)
+            context.startActivity(intent)
         }
     }
 

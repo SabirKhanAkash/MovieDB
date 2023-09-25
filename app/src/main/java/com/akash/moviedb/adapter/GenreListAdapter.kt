@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.R
 import com.akash.moviedb.model.Genre
 
-class GenreListAdapter(private var context: Context, private var genreList: List<Genre>) :
+class GenreListAdapter(private var context: Context, private var genreList: List<Genre>?) :
     RecyclerView.Adapter<GenreListAdapter.ViewHolder>() {
 
     fun updateData(genre: List<Genre>) {
@@ -23,12 +23,12 @@ class GenreListAdapter(private var context: Context, private var genreList: List
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = genreList[position]
+        val data = genreList!![position]
         holder.genreName.text = data.name
     }
 
     override fun getItemCount(): Int {
-        return genreList.size
+        return genreList?.size!!
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

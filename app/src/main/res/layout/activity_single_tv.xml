@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.SingleMovieActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/moviePoster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/poster_icon" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:background="@drawable/container_bg"
+                android:orientation="vertical"
+                android:padding="15sp">
+
+                <TextView
+                    android:id="@+id/movieTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="TV Show Name Here"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="Type: "
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/popularity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="Popularity Score Here"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/genreView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5sp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/genre_item" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5sp"
+                    android:columnCount="3"
+                    android:rowCount="1">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        app:cardCornerRadius="10sp"
+                        app:cardElevation="9sp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5sp"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="Runtime"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/runtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="N/A"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        app:cardCornerRadius="10sp"
+                        app:cardElevation="9sp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5sp"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="Language"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/language"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="-"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginEnd="5sp"
+                        android:layout_marginBottom="5sp"
+                        app:cardCornerRadius="10sp"
+                        app:cardElevation="9sp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5sp"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="No of Season"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/no_of_season"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="XX"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        app:cardCornerRadius="10sp"
+                        app:cardElevation="9sp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5sp"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="First Aired\nDate"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/first_air_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="XXXX-XX-XX"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginBottom="5sp"
+                        app:cardCornerRadius="10sp"
+                        app:cardElevation="9sp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5sp"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="Last Aired\nDate"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/last_air_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="XXXX-XX-XX"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginEnd="5sp"
+                        android:layout_marginBottom="5sp"
+                        app:cardCornerRadius="10sp"
+                        app:cardElevation="9sp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5sp"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="No of\nEpisode"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/no_of_eps"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="XX"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                </GridLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="TV Series Overview"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/movieOverview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="A brief overview of the movie will be displayed here"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
