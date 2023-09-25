@@ -5,5 +5,5 @@ data class TVSeriesCreator(
     var credit_id: String,
     var name: String,
     var gender: Int,
-    var profile_path: String
+    var profile_path: String?
 )

@@ -10,7 +10,7 @@ data class Episode(
     var episode_number: Int,
     var episode_type: String,
     var production_code: String,
-    var runtime: Int,
+    var runtime: Int?,
     var season_number: Int,
     var show_id: Int,
     var still_path: String

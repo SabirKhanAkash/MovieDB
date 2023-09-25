@@ -1,7 +1,6 @@
 package com.akash.moviedb.view.activity
 
 import GenericApiResponse
-import SingleMovieViewModel
 import SingleTVShowViewModel
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,11 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.BuildConfig
 import com.akash.moviedb.adapter.GenreListAdapter
-import com.akash.moviedb.databinding.ActivitySingleMovieBinding
 import com.akash.moviedb.databinding.ActivitySingleTvBinding
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.utils.SharedPref
-import com.akash.moviedb.viewmodel.viewmodelfactory.SingleMovieViewModelFactory
 import com.akash.moviedb.viewmodel.viewmodelfactory.SingleTVShowViewModelFactory
 import com.bumptech.glide.Glide
 import showTopToast
@@ -32,7 +29,10 @@ class SingleTVActivity : AppCompatActivity() {
 
         val selectedMovieId = sharedPref.getInt(applicationContext, "selectedTVId")
         viewModel =
-            ViewModelProvider(this, SingleTVShowViewModelFactory())[SingleTVShowViewModel::class.java]
+            ViewModelProvider(
+                this,
+                SingleTVShowViewModelFactory()
+            )[SingleTVShowViewModel::class.java]
         genreView = binding!!.genreView
         genreListAdapter = GenreListAdapter(applicationContext, emptyList())
         genreView.adapter = genreListAdapter
@@ -50,7 +50,7 @@ class SingleTVActivity : AppCompatActivity() {
                     binding!!.movieTitle.text = resultData.original_name
                     binding!!.type.text = resultData.type
                     binding!!.popularity.text = "Popularity Score: ${resultData.popularity}"
-                    binding!!.runtime.text = resultData.episode_run_time.toString()
+                    binding!!.runtime.text = (resultData.episode_run_time.toString()) == "[]" ? "N/A" :
                     binding!!.language.text = resultData.original_language
                     binding!!.noOfSeason.text = resultData.number_of_seasons.toString()
                     binding!!.noOfEps.text = resultData.number_of_episodes.toString()
