@@ -13,11 +13,11 @@ class TVShowViewModel(private val repository: TVRepository) : ViewModel() {
     val tvLiveData: MutableLiveData<GenericApiResponse<List<TVShowDetails>>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun fetchTrendingTVShows() {
+    fun fetchTrendingTVShows(pageNo: Int) {
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = repository.getTrendingTVShows().execute()
+                val response = repository.getTrendingTVShows(pageNo).execute()
                 if (response.isSuccessful) {
                     val trendingTVShows: List<TVShowDetails> = response.body()!!.results
                     if (trendingTVShows.isNotEmpty()) {

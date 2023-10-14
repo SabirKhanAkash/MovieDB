@@ -21,7 +21,8 @@ class TVShowFragment : Fragment() {
         fun newInstance() = TVShowFragment()
     }
 
-    val loadingDialog: LoadingDialog = LoadingDialog(this@TVShowFragment)
+    private var pageNo: Int = 1
+    private val loadingDialog: LoadingDialog = LoadingDialog(this@TVShowFragment)
     private var binding: FragmentTvShowBinding? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var tvAdapter: TVAdapter
@@ -72,8 +73,50 @@ class TVShowFragment : Fragment() {
             }
         }
 
-        viewModel.fetchTrendingTVShows()
+        updateUI()
+
+        handleClickEvent()
+
+        viewModel.fetchTrendingTVShows(pageNo)
 
         return binding!!.root
+    }
+
+    private fun updateUI() {
+        if(pageNo == 1) {
+            binding!!.prevBtn.isEnabled = false
+        }
+        if(pageNo == 500) {
+            binding!!.nextBtn.isEnabled = false
+        }
+        else {
+            binding!!.prevBtn.isEnabled = true
+            binding!!.nextBtn.isEnabled = true
+        }
+    }
+
+    private fun handleClickEvent() {
+        binding!!.pageIndicator.setOnLongClickListener {
+            pageNo = 1
+            viewModel.fetchTrendingTVShows(pageNo)
+            binding!!.pageIndicator.text = pageNo.toString()
+            true
+        }
+
+        binding!!.prevBtn.setOnClickListener {
+            if(pageNo > 1) {
+                pageNo--
+                viewModel.fetchTrendingTVShows(pageNo)
+                binding!!.pageIndicator.text = pageNo.toString()
+            }
+        }
+
+        binding!!.nextBtn.setOnClickListener {
+            if(pageNo < 500) {
+                pageNo++
+                viewModel.fetchTrendingTVShows(pageNo)
+                binding!!.pageIndicator.text = pageNo.toString()
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@ object RetrofitClient {
     private val builder = OkHttpClient.Builder()
     private val interceptor = HttpLoggingInterceptor()
 
-    fun getRetrofitInstance(): Retrofit {
+    private fun getRetrofitInstance(): Retrofit {
         val dispatcher = Dispatcher()
         dispatcher.maxRequests = 1
 

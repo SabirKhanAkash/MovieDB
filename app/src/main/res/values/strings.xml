@@ -3,4 +3,6 @@
     <string name="menu_item_1_title">Movie</string>
     <string name="menu_item_2_title">TV Show</string>
     <string name="menu_item_3_title">Graph</string>
+    <string name="pagePrevBtnTxt"><![CDATA[<<\nPrev.]]></string>
+    <string name="pageNextBtnTxt"><![CDATA[>>\nNext]]></string>
 </resources>

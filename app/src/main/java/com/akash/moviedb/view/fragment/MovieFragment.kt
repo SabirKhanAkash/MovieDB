@@ -21,6 +21,7 @@ class MovieFragment : Fragment() {
         fun newInstance() = MovieFragment()
     }
 
+    private var pageNo: Int = 1
     val loadingDialog: LoadingDialog = LoadingDialog(this@MovieFragment)
     private var binding: FragmentMovieBinding? = null
     private lateinit var recyclerView: RecyclerView
@@ -71,8 +72,50 @@ class MovieFragment : Fragment() {
             }
         }
 
-        viewModel.fetchTrendingMovies()
+        updateUI()
+
+        handleClickEvent()
+
+        viewModel.fetchTrendingMovies(pageNo)
         return binding!!.root
+    }
+
+    private fun updateUI() {
+        if(pageNo == 1) {
+            binding!!.prevBtn.isEnabled = false
+        }
+        if(pageNo == 500) {
+            binding!!.nextBtn.isEnabled = false
+        }
+        else {
+            binding!!.prevBtn.isEnabled = true
+            binding!!.nextBtn.isEnabled = true
+        }
+    }
+
+    private fun handleClickEvent() {
+        binding!!.pageIndicator.setOnLongClickListener {
+            pageNo = 1
+            viewModel.fetchTrendingMovies(pageNo)
+            binding!!.pageIndicator.text = pageNo.toString()
+            true
+        }
+
+        binding!!.prevBtn.setOnClickListener {
+            if(pageNo > 1) {
+                pageNo--
+                viewModel.fetchTrendingMovies(pageNo)
+                binding!!.pageIndicator.text = pageNo.toString()
+            }
+        }
+
+        binding!!.nextBtn.setOnClickListener {
+            if(pageNo < 500) {
+                pageNo++
+                viewModel.fetchTrendingMovies(pageNo)
+                binding!!.pageIndicator.text = pageNo.toString()
+            }
+        }
     }
 
 }

@@ -11,11 +11,11 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
     val moviesLiveData: MutableLiveData<GenericApiResponse<List<MovieDetails>>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun fetchTrendingMovies() {
+    fun fetchTrendingMovies(pageNo: Int) {
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = repository.getTrendingMovies().execute()
+                val response = repository.getTrendingMovies(pageNo).execute()
                 if (response.isSuccessful) {
                     val trendingMovies: List<MovieDetails> = response.body()!!.results
                     if (trendingMovies.isNotEmpty()) {

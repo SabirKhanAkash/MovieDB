@@ -23,4 +23,99 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2" />
 
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/pageBtnLayout"
+        android:layout_gravity="bottom"
+        android:layout_margin="10sp"
+        android:weightSum="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginStart="3sp"
+            android:layout_marginEnd="3sp"
+            android:id="@+id/prevBtn"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="40sp"
+            android:textStyle="bold"
+            android:layout_height="35sp"
+            android:background="@drawable/page_bg"
+            android:text="@string/pagePrevBtnTxt"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/black"
+            android:textSize="9sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginStart="3sp"
+            android:layout_marginEnd="3sp"
+            android:id="@+id/pageIndicator"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="40sp"
+            android:textStyle="bold"
+            android:layout_height="40sp"
+            android:background="@drawable/page_indicator_bg"
+            android:text="1"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginStart="3sp"
+            android:layout_marginEnd="3sp"
+            android:id="@+id/nextBtn"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="40sp"
+            android:textStyle="bold"
+            android:layout_height="35sp"
+            android:background="@drawable/page_bg"
+            android:text="@string/pageNextBtnTxt"
+            android:fontFamily="@font/inter_regular"
+            android:textColor="@color/black"
+            android:textSize="9sp"/>
+
+        <!--        <LinearLayout
+                    android:paddingEnd="3sp"
+                    android:gravity="right"
+                    android:layout_width="0dp"
+                    android:layout_height="40sp"
+                    android:layout_weight="0.5">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/prevBtn"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="45sp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/page_bg"
+                        android:text="@string/pagePrevBtnTxt"
+                        android:fontFamily="@font/inter_regular"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:paddingStart="3sp"
+                    android:gravity="left"
+                    android:layout_width="0dp"
+                    android:layout_height="40sp"
+                    android:layout_weight="0.5">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/nextBtn"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:layout_width="45sp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/page_bg"
+                        android:text="@string/pageNextBtnTxt"
+                        android:fontFamily="@font/inter_regular"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>-->
+
+    </LinearLayout>
+
 </FrameLayout>

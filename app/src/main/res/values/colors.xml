@@ -17,4 +17,7 @@
 
     <!--    For Loader-->
     <color name="medium_gray">#1A304A</color>
+
+    <!--    For Border-->
+    <color name="regular_gray">#898B8D</color>
 </resources>
