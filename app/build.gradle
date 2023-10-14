@@ -94,6 +94,11 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.14.2'
 
     /**
+     * For Video Play
+     */
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
+
+    /**
      * Default Pre-installed
      */
     implementation 'androidx.core:core-ktx:1.10.1'

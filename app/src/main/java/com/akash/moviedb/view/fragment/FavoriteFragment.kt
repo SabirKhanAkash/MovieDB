@@ -9,21 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.adapter.TVAdapter
-import com.akash.moviedb.databinding.FragmentTvShowBinding
+import com.akash.moviedb.databinding.FragmentFavoriteBinding
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.viewmodel.TVShowViewModel
 import com.akash.moviedb.viewmodel.viewmodelfactory.TVShowViewModelFactory
 import showTopToast
 
-class TVShowFragment : Fragment() {
+class FavoriteFragment : Fragment() {
 
     companion object {
-        fun newInstance() = TVShowFragment()
+        fun newInstance() = FavoriteFragment()
     }
 
     private var pageNo: Int = 1
-    private val loadingDialog: LoadingDialog = LoadingDialog(this@TVShowFragment)
-    private var binding: FragmentTvShowBinding? = null
+    private val loadingDialog: LoadingDialog = LoadingDialog(this@FavoriteFragment)
+    private var binding: FragmentFavoriteBinding? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var tvAdapter: TVAdapter
     private lateinit var viewModel: TVShowViewModel
@@ -32,7 +32,7 @@ class TVShowFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentTvShowBinding.inflate(layoutInflater)
+        binding = FragmentFavoriteBinding.inflate(layoutInflater)
 
         recyclerView = binding!!.tvRecyclerView
         viewModel = ViewModelProvider(this, TVShowViewModelFactory())[TVShowViewModel::class.java]
@@ -44,7 +44,8 @@ class TVShowFragment : Fragment() {
             when (result) {
                 is GenericApiResponse.Success -> {
                     val movies = result.data
-                    if (movies.isNotEmpty()) {
+                    // Gotta fix it to isNotEmpty()
+                    if (movies.isEmpty()) {
                         binding!!.tvEmptiness.visibility = View.INVISIBLE
                     }
                     tvAdapter.updateData(movies)

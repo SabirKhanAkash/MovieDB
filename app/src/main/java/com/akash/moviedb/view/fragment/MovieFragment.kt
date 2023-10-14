@@ -76,18 +76,18 @@ class MovieFragment : Fragment() {
 
         handleClickEvent()
 
+        binding!!.pageIndicator.text = pageNo.toString()
         viewModel.fetchTrendingMovies(pageNo)
         return binding!!.root
     }
 
     private fun updateUI() {
-        if(pageNo == 1) {
+        if (pageNo == 1) {
             binding!!.prevBtn.isEnabled = false
         }
-        if(pageNo == 500) {
+        if (pageNo == 500) {
             binding!!.nextBtn.isEnabled = false
-        }
-        else {
+        } else {
             binding!!.prevBtn.isEnabled = true
             binding!!.nextBtn.isEnabled = true
         }
@@ -102,7 +102,7 @@ class MovieFragment : Fragment() {
         }
 
         binding!!.prevBtn.setOnClickListener {
-            if(pageNo > 1) {
+            if (pageNo > 1) {
                 pageNo--
                 viewModel.fetchTrendingMovies(pageNo)
                 binding!!.pageIndicator.text = pageNo.toString()
@@ -110,7 +110,7 @@ class MovieFragment : Fragment() {
         }
 
         binding!!.nextBtn.setOnClickListener {
-            if(pageNo < 500) {
+            if (pageNo < 500) {
                 pageNo++
                 viewModel.fetchTrendingMovies(pageNo)
                 binding!!.pageIndicator.text = pageNo.toString()

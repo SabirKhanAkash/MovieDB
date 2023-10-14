@@ -2,6 +2,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.akash.moviedb.model.MovieVideoDetails
 import com.akash.moviedb.model.TVShowDetails
 import com.akash.moviedb.repository.SingleTVShowRepository
 import com.google.gson.Gson
@@ -10,6 +11,8 @@ import kotlinx.coroutines.launch
 
 class SingleTVShowViewModel(private val repository: SingleTVShowRepository) : ViewModel() {
     val singleTVLiveData: MutableLiveData<GenericApiResponse<TVShowDetails>> = MutableLiveData()
+    val singleTVVideoLiveData: MutableLiveData<GenericApiResponse<MovieVideoDetails>> =
+        MutableLiveData()
     val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     fun fetchSingleTVDetails(selectedTVId: Int) {
@@ -42,6 +45,44 @@ class SingleTVShowViewModel(private val repository: SingleTVShowRepository) : Vi
             } catch (e: Exception) {
                 isLoading.postValue(false)
                 singleTVLiveData.postValue(GenericApiResponse.Error(e.message))
+            }
+        }
+    }
+
+    fun fetchSingleTVTrailer(selectedTVId: Int) {
+        isLoading.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repository.getSingleTVTrailer(selectedTVId).execute()
+                val responseBodyString = response.body()?.toString()
+                Log.d("Response", responseBodyString ?: "Response body is null")
+                try {
+                    val singleMovieDetails: TVShowDetails =
+                        Gson().fromJson(responseBodyString, TVShowDetails::class.java)
+                    Log.d("Response", "Successfully deserialized: $singleMovieDetails")
+                } catch (e: Exception) {
+                    Log.e("Response", "Error during deserialization", e)
+                }
+                if (response.isSuccessful) {
+                    val singleTVVideoDetails: MovieVideoDetails? = response.body()
+                    if (singleTVVideoDetails != null) {
+                        singleTVVideoLiveData.postValue(
+                            GenericApiResponse.Success(
+                                singleTVVideoDetails
+                            )
+                        )
+                    } else {
+                        isLoading.postValue(false)
+                        singleTVVideoLiveData.postValue(GenericApiResponse.Error("Movie details are null"))
+                    }
+                    isLoading.postValue(false)
+                } else {
+                    isLoading.postValue(false)
+                    singleTVVideoLiveData.postValue(GenericApiResponse.Error("Oops! Something went wrong. :("))
+                }
+            } catch (e: Exception) {
+                isLoading.postValue(false)
+                singleTVVideoLiveData.postValue(GenericApiResponse.Error(e.message))
             }
         }
     }

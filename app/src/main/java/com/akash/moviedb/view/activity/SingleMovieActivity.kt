@@ -3,19 +3,26 @@ package com.akash.moviedb.view.activity
 import GenericApiResponse
 import SingleMovieViewModel
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.BuildConfig
+import com.akash.moviedb.R
 import com.akash.moviedb.adapter.GenreListAdapter
 import com.akash.moviedb.databinding.ActivitySingleMovieBinding
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.utils.SharedPref
 import com.akash.moviedb.viewmodel.viewmodelfactory.SingleMovieViewModelFactory
 import com.bumptech.glide.Glide
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import showTopToast
 
+
 class SingleMovieActivity : AppCompatActivity() {
+    private var favChecked: Boolean = false
     private val loadingDialog: LoadingDialog = LoadingDialog(this@SingleMovieActivity)
     private val sharedPref: SharedPref = SharedPref()
     private var binding: ActivitySingleMovieBinding? = null
@@ -26,6 +33,7 @@ class SingleMovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySingleMovieBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
+        lifecycle.addObserver(binding!!.trailerView)
 
         val selectedMovieId = sharedPref.getInt(applicationContext, "selectedMovieId")
         viewModel =
@@ -33,15 +41,31 @@ class SingleMovieActivity : AppCompatActivity() {
         genreView = binding!!.genreView
         genreListAdapter = GenreListAdapter(applicationContext, emptyList())
         genreView.adapter = genreListAdapter
+
+        viewModel.fetchSingleMovieDetails(selectedMovieId)
+        viewModel.fetchSingleMovieTrailer(selectedMovieId)
+
         viewModel.singleMovieLiveData.observe(this@SingleMovieActivity) { result ->
             when (result) {
                 is GenericApiResponse.Success -> {
                     val resultData = result.data
                     genreListAdapter.updateData(resultData.genres)
+
                     Glide.with(applicationContext)
                         .load(BuildConfig.POSTER_BASE_URL + resultData.backdrop_path).into(
                             binding!!.moviePoster
                         )
+//                    binding!!.moviePoster.setOnClickListener {
+//                        showTopToast(applicationContext, "Trailer started!", "short", "positive")
+//                    }
+                    binding!!.trailerView.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(youTubePlayer: YouTubePlayer) {
+                            val videoId = "AjLKTz81bj8"
+                            youTubePlayer.loadVideo(videoId, 0f)
+                        }
+                    })
+
                     binding!!.movieTitle.text = resultData.original_title
                     binding!!.tagline.text = resultData.tagline
                     binding!!.popularity.text = "Popularity Score: ${resultData.popularity}"
@@ -49,6 +73,133 @@ class SingleMovieActivity : AppCompatActivity() {
                     binding!!.language.text = resultData.original_language
                     binding!!.releaseDate.text = resultData.release_date
                     binding!!.movieOverview.text = resultData.overview
+
+                    binding!!.favBtn.setOnClickListener {
+                        if (favChecked) {
+                            showTopToast(
+                                applicationContext,
+                                "Removed from favorites",
+                                "short",
+                                "negative"
+                            )
+                            binding!!.favBtn.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    applicationContext,
+                                    R.drawable.fav_unchecked
+                                )
+                            )
+                            favChecked = false
+                        } else {
+                            showTopToast(
+                                applicationContext,
+                                "Added to favorites",
+                                "short",
+                                "positive"
+                            )
+                            binding!!.favBtn.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    applicationContext,
+                                    R.drawable.fav_checked
+                                )
+                            )
+                            favChecked = true
+                        }
+                    }
+                }
+
+                is GenericApiResponse.Error -> {
+                    showTopToast(
+                        applicationContext,
+                        "Sorry! something went wrong :(",
+                        "short",
+                        "neutral"
+                    )
+                }
+
+                else -> {
+                    showTopToast(applicationContext, "Sorry! 404 not found :(", "short", "neutral")
+                }
+            }
+        }
+
+        viewModel.singleMovieVideoLiveData.observe(this@SingleMovieActivity) { result ->
+            when (result) {
+                is GenericApiResponse.Success -> {
+                    val resultData = result.data
+                    var keyIndx = 0
+                    var i = resultData.results.size - 1
+
+                    while (i >= 0) {
+                        if (resultData.results[i].name.contains(
+                                "Official Trailer",
+                                ignoreCase = true
+                            ) || resultData.results[i].name.contains("Official", ignoreCase = true)
+                        ) {
+                            keyIndx = i
+                            break
+                        }
+                        i--
+                    }
+
+                    binding!!.trailerView.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(youTubePlayer: YouTubePlayer) {
+                            try {
+                                if (resultData.results.size > 0) {
+                                    val videoId = resultData.results[keyIndx].key
+                                    val site = resultData.results[keyIndx].site
+                                    if (site == "YouTube") {
+                                        youTubePlayer.loadVideo(videoId, 0f)
+                                    } else {
+                                        youTubePlayer.pause()
+                                        binding!!.trailerView.visibility = View.GONE
+                                    }
+                                } else {
+                                    youTubePlayer.pause()
+                                    binding!!.trailerView.visibility = View.GONE
+                                }
+                            } catch (e: Exception) {
+                                showTopToast(
+                                    applicationContext,
+                                    e.message.toString(),
+                                    "short",
+                                    "positive"
+                                )
+                            }
+                        }
+                    })
+
+                    binding!!.favBtn.setOnClickListener {
+                        if (favChecked) {
+                            showTopToast(
+                                applicationContext,
+                                "Removed from favorites",
+                                "short",
+                                "negative"
+                            )
+                            binding!!.favBtn.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    applicationContext,
+                                    R.drawable.fav_unchecked
+                                )
+                            )
+                            favChecked = false
+                        } else {
+                            showTopToast(
+                                applicationContext,
+                                "Added to favorites",
+                                "short",
+                                "positive"
+                            )
+                            binding!!.favBtn.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    applicationContext,
+                                    R.drawable.fav_checked
+                                )
+                            )
+                            favChecked = true
+                        }
+                    }
                 }
 
                 is GenericApiResponse.Error -> {
@@ -73,8 +224,6 @@ class SingleMovieActivity : AppCompatActivity() {
                 loadingDialog.dismissLoading()
             }
         }
-
-        viewModel.fetchSingleMovieDetails(selectedMovieId)
         sharedPref.clearDataOnKey(applicationContext, "selectedMovieId")
     }
 }

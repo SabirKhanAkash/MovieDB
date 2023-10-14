@@ -1,5 +1,6 @@
 package com.akash.moviedb.api
 
+import com.akash.moviedb.model.MovieVideoDetails
 import com.akash.moviedb.model.TVShowDetails
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,4 +13,10 @@ interface SingleTVShowDetailsAPI {
         @Path("id") id: Int,
         @Query("api_key") API_KEY: String,
     ): Call<TVShowDetails>
+
+    @GET("3/tv/{id}/videos")
+    fun getSingleTVVideo(
+        @Path("id") id: Int,
+        @Query("api_key") API_KEY: String,
+    ): Call<MovieVideoDetails>
 }
