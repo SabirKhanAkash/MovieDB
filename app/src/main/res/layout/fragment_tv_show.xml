@@ -16,10 +16,24 @@
         android:text="Sigh! what a terrible day\nwithout any tv show"
         android:textSize="18sp" />
 
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/tvSearchBar"
+        style="@style/MaterialSearchBarLight"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_margin="10sp"
+        app:mt_hint="Search your TV show..."
+        app:mt_maxSuggestionsCount="10"
+        app:mt_placeholder="Search your TV show..."
+        app:mt_roundedSearchBarEnabled="true"
+        app:mt_searchBarColor="@color/light_gray"
+        app:mt_speechMode="false" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tv_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="65sp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2" />
 

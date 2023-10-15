@@ -32,4 +32,22 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
             }
         }
     }
+
+    fun fetchSearchedMovies(query: String, pageNo: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repository.getSearchedMovies(query, pageNo).execute()
+                if (response.isSuccessful) {
+                    val searchedMovies: List<MovieDetails> = response.body()!!.results
+                    if (searchedMovies.isNotEmpty()) {
+                        moviesLiveData.postValue(GenericApiResponse.Success(searchedMovies))
+                    }
+                } else {
+                    moviesLiveData.postValue(GenericApiResponse.Error("Oops! Something went wrong. :("))
+                }
+            } catch (e: Exception) {
+                moviesLiveData.postValue(GenericApiResponse.Error(e.message))
+            }
+        }
+    }
 }

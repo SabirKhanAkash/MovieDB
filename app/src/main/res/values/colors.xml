@@ -20,4 +20,5 @@
 
     <!--    For Border-->
     <color name="regular_gray">#898B8D</color>
+    <color name="light_gray">#DAEAECED</color>
 </resources>

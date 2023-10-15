@@ -3,6 +3,8 @@ package com.akash.moviedb.view.fragment
 import GenericApiResponse
 import MovieViewModel
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.adapter.MovieAdapter
 import com.akash.moviedb.databinding.FragmentMovieBinding
 import com.akash.moviedb.utils.LoadingDialog
+import com.akash.moviedb.utils.saveSearchSuggestionToDisk
 import com.akash.moviedb.viewmodel.viewmodelfactory.MovieViewModelFactory
 import showTopToast
+
 
 class MovieFragment : Fragment() {
 
@@ -21,6 +25,7 @@ class MovieFragment : Fragment() {
         fun newInstance() = MovieFragment()
     }
 
+    private var query: String? = ""
     private var pageNo: Int = 1
     val loadingDialog: LoadingDialog = LoadingDialog(this@MovieFragment)
     private var binding: FragmentMovieBinding? = null
@@ -98,13 +103,17 @@ class MovieFragment : Fragment() {
             pageNo = 1
             viewModel.fetchTrendingMovies(pageNo)
             binding!!.pageIndicator.text = pageNo.toString()
+            binding!!.movieSearchBar.closeSearch()
             true
         }
 
         binding!!.prevBtn.setOnClickListener {
             if (pageNo > 1) {
                 pageNo--
-                viewModel.fetchTrendingMovies(pageNo)
+                if (query.toString().length > 0)
+                    viewModel.fetchSearchedMovies(query.toString(), pageNo)
+                else
+                    viewModel.fetchTrendingMovies(pageNo)
                 binding!!.pageIndicator.text = pageNo.toString()
             }
         }
@@ -112,10 +121,33 @@ class MovieFragment : Fragment() {
         binding!!.nextBtn.setOnClickListener {
             if (pageNo < 500) {
                 pageNo++
-                viewModel.fetchTrendingMovies(pageNo)
+                if (query.toString().length > 0)
+                    viewModel.fetchSearchedMovies(query.toString(), pageNo)
+                else
+                    viewModel.fetchTrendingMovies(pageNo)
                 binding!!.pageIndicator.text = pageNo.toString()
             }
         }
+
+        binding!!.movieSearchBar.addTextChangeListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+            override fun afterTextChanged(editable: Editable) {
+                if (editable.isNotEmpty()) {
+                    query = binding!!.movieSearchBar.text
+                    viewModel.fetchSearchedMovies(query.toString(), pageNo)
+                }
+            }
+        })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        saveSearchSuggestionToDisk(
+            requireContext(),
+            "movie",
+            binding!!.movieSearchBar.lastSuggestions
+        )
+    }
 }

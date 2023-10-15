@@ -6,8 +6,18 @@ import com.akash.moviedb.model.TrendingMoviesResponse
 import retrofit2.Call
 
 class MovieRepository(private val service: TrendingMoviesAPI) {
-    suspend fun getTrendingMovies(pageNo: Int): Call<TrendingMoviesResponse> {
+    fun getTrendingMovies(pageNo: Int): Call<TrendingMoviesResponse> {
         return service.getMovies(BuildConfig.THE_MOVIE_DB_API_KEY, pageNo)
+    }
+
+    fun getSearchedMovies(query: String, pageNo: Int): Call<TrendingMoviesResponse> {
+        return service.getSearchedMovies(
+            BuildConfig.THE_MOVIE_DB_API_KEY,
+            query,
+            "true",
+            "en-US",
+            pageNo
+        )
     }
 }
 

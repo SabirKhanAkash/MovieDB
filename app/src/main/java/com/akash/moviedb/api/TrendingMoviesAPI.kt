@@ -11,4 +11,13 @@ interface TrendingMoviesAPI {
         @Query("api_key") API_KEY: String,
         @Query("page") page_no: Int
     ): Call<TrendingMoviesResponse>
+
+    @GET("3/search/movie")
+    fun getSearchedMovies(
+        @Query("api_key") API_KEY: String,
+        @Query("query") query: String,
+        @Query("include_adult") include_adult: String,
+        @Query("language") language: String,
+        @Query("page") page_no: Int
+    ): Call<TrendingMoviesResponse>
 }

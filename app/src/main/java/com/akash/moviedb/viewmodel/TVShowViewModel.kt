@@ -34,4 +34,22 @@ class TVShowViewModel(private val repository: TVRepository) : ViewModel() {
             }
         }
     }
+
+    fun fetchSearchedTVShows(query: String, pageNo: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repository.getSearchedTVShows(query, pageNo).execute()
+                if (response.isSuccessful) {
+                    val trendingTVShows: List<TVShowDetails> = response.body()!!.results
+                    if (trendingTVShows.isNotEmpty()) {
+                        tvLiveData.postValue(GenericApiResponse.Success(trendingTVShows))
+                    }
+                } else {
+                    tvLiveData.postValue(GenericApiResponse.Error("Oops! Something went wrong. :("))
+                }
+            } catch (e: Exception) {
+                tvLiveData.postValue(GenericApiResponse.Error(e.message))
+            }
+        }
+    }
 }

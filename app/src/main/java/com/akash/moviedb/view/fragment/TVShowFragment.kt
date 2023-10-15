@@ -2,6 +2,8 @@ package com.akash.moviedb.view.fragment
 
 import GenericApiResponse
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.adapter.TVAdapter
 import com.akash.moviedb.databinding.FragmentTvShowBinding
 import com.akash.moviedb.utils.LoadingDialog
+import com.akash.moviedb.utils.saveSearchSuggestionToDisk
 import com.akash.moviedb.viewmodel.TVShowViewModel
 import com.akash.moviedb.viewmodel.viewmodelfactory.TVShowViewModelFactory
 import showTopToast
@@ -21,6 +24,7 @@ class TVShowFragment : Fragment() {
         fun newInstance() = TVShowFragment()
     }
 
+    private var query: String? = ""
     private var pageNo: Int = 1
     private val loadingDialog: LoadingDialog = LoadingDialog(this@TVShowFragment)
     private var binding: FragmentTvShowBinding? = null
@@ -100,13 +104,17 @@ class TVShowFragment : Fragment() {
             pageNo = 1
             viewModel.fetchTrendingTVShows(pageNo)
             binding!!.pageIndicator.text = pageNo.toString()
+            binding!!.tvSearchBar.closeSearch()
             true
         }
 
         binding!!.prevBtn.setOnClickListener {
             if (pageNo > 1) {
                 pageNo--
-                viewModel.fetchTrendingTVShows(pageNo)
+                if (query.toString().length > 0)
+                    viewModel.fetchSearchedTVShows(query.toString(), pageNo)
+                else
+                    viewModel.fetchTrendingTVShows(pageNo)
                 binding!!.pageIndicator.text = pageNo.toString()
             }
         }
@@ -114,9 +122,29 @@ class TVShowFragment : Fragment() {
         binding!!.nextBtn.setOnClickListener {
             if (pageNo < 500) {
                 pageNo++
-                viewModel.fetchTrendingTVShows(pageNo)
+                if (query.toString().length > 0)
+                    viewModel.fetchSearchedTVShows(query.toString(), pageNo)
+                else
+                    viewModel.fetchTrendingTVShows(pageNo)
                 binding!!.pageIndicator.text = pageNo.toString()
             }
         }
+
+        binding!!.tvSearchBar.addTextChangeListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+            override fun afterTextChanged(editable: Editable) {
+                if (editable.isNotEmpty()) {
+                    query = binding!!.tvSearchBar.text
+                    viewModel.fetchSearchedTVShows(query.toString(), pageNo)
+                }
+            }
+        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        saveSearchSuggestionToDisk(requireContext(), "tv", binding!!.tvSearchBar.lastSuggestions)
     }
 }
