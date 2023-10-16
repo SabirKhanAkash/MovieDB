@@ -2,6 +2,7 @@ package com.akash.moviedb.view.activity
 
 import GenericApiResponse
 import SingleMovieViewModel
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.BuildConfig
 import com.akash.moviedb.R
 import com.akash.moviedb.adapter.GenreListAdapter
+import com.akash.moviedb.data.local.roomdb.dao.ShowDao
+import com.akash.moviedb.data.local.roomdb.database.ShowDatabase
+import com.akash.moviedb.data.local.roomdb.entity.Show
 import com.akash.moviedb.databinding.ActivitySingleMovieBinding
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.utils.SharedPref
@@ -18,6 +22,9 @@ import com.akash.moviedb.viewmodel.viewmodelfactory.SingleMovieViewModelFactory
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import showTopToast
 
 
@@ -76,6 +83,7 @@ class SingleMovieActivity : AppCompatActivity() {
 
                     binding!!.favBtn.setOnClickListener {
                         if (favChecked) {
+                            removeShowToDatabase(applicationContext, resultData as Show)
                             showTopToast(
                                 applicationContext,
                                 "Removed from favorites",
@@ -90,6 +98,7 @@ class SingleMovieActivity : AppCompatActivity() {
                             )
                             favChecked = false
                         } else {
+                            addShowToDatabase(applicationContext, resultData as Show)
                             showTopToast(
                                 applicationContext,
                                 "Added to favorites",
@@ -225,5 +234,23 @@ class SingleMovieActivity : AppCompatActivity() {
             }
         }
         sharedPref.clearDataOnKey(applicationContext, "selectedMovieId")
+    }
+
+    private fun removeShowToDatabase(context: Context, show: Show) {
+        val db = ShowDatabase.getDatabase(context)
+        val favoriteShowDao = db.showDao()
+
+        GlobalScope.launch(Dispatchers.IO) {
+            favoriteShowDao.delete(show)
+        }
+    }
+
+    fun addShowToDatabase(context: Context, show: Show) {
+        val db = ShowDatabase.getDatabase(context)
+        val favoriteShowDao = db.showDao()
+
+        GlobalScope.launch(Dispatchers.IO) {
+            favoriteShowDao.insert(show)
+        }
     }
 }

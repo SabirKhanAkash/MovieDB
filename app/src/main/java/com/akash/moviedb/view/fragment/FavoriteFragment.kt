@@ -1,6 +1,6 @@
 package com.akash.moviedb.view.fragment
 
-import GenericApiResponse
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.adapter.TVAdapter
+import com.akash.moviedb.data.local.roomdb.dao.ShowDao
+import com.akash.moviedb.data.local.roomdb.database.ShowDatabase
+import com.akash.moviedb.data.local.roomdb.entity.Show
 import com.akash.moviedb.databinding.FragmentFavoriteBinding
+import com.akash.moviedb.model.TVShowDetails
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.viewmodel.TVShowViewModel
 import com.akash.moviedb.viewmodel.viewmodelfactory.TVShowViewModelFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import showTopToast
 
 class FavoriteFragment : Fragment() {
@@ -40,7 +47,14 @@ class FavoriteFragment : Fragment() {
 
         recyclerView.adapter = tvAdapter
 
-        viewModel.tvLiveData.observe(viewLifecycleOwner) { result ->
+        getShowFromDatabase(requireContext())
+
+        if (getShowFromDatabase(requireContext()).isNotEmpty()) {
+            binding!!.tvEmptiness.visibility = View.INVISIBLE
+        }
+        tvAdapter.updateData(getShowFromDatabase(requireContext()) as List<TVShowDetails>)
+
+/*        viewModel.tvLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is GenericApiResponse.Success -> {
                     val movies = result.data
@@ -76,12 +90,19 @@ class FavoriteFragment : Fragment() {
 
         updateUI()
 
-        handleClickEvent()
+        handleClickEvent()*/
 
         binding!!.pageIndicator.text = pageNo.toString()
-        viewModel.fetchTrendingTVShows(pageNo)
+//        viewModel.fetchTrendingTVShows(pageNo)
 
         return binding!!.root
+    }
+
+    private fun getShowFromDatabase(context: Context): List<Show> {
+        val db = ShowDatabase.getDatabase(context)
+        val favoriteShowDao = db.showDao()
+
+        return favoriteShowDao.getFavShows()
     }
 
     private fun updateUI() {
