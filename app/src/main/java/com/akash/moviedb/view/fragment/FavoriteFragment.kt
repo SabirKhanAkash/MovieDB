@@ -6,21 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.akash.moviedb.adapter.TVAdapter
-import com.akash.moviedb.data.local.roomdb.dao.ShowDao
+import com.akash.moviedb.adapter.FavShowAdapter
 import com.akash.moviedb.data.local.roomdb.database.ShowDatabase
 import com.akash.moviedb.data.local.roomdb.entity.Show
 import com.akash.moviedb.databinding.FragmentFavoriteBinding
-import com.akash.moviedb.model.TVShowDetails
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.viewmodel.TVShowViewModel
-import com.akash.moviedb.viewmodel.viewmodelfactory.TVShowViewModelFactory
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import showTopToast
 
 class FavoriteFragment : Fragment() {
 
@@ -32,8 +26,9 @@ class FavoriteFragment : Fragment() {
     private val loadingDialog: LoadingDialog = LoadingDialog(this@FavoriteFragment)
     private var binding: FragmentFavoriteBinding? = null
     private lateinit var recyclerView: RecyclerView
-    private lateinit var tvAdapter: TVAdapter
+    private lateinit var favShowAdapter: FavShowAdapter
     private lateinit var viewModel: TVShowViewModel
+    private var favShows: List<Show>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,57 +37,60 @@ class FavoriteFragment : Fragment() {
         binding = FragmentFavoriteBinding.inflate(layoutInflater)
 
         recyclerView = binding!!.tvRecyclerView
-        viewModel = ViewModelProvider(this, TVShowViewModelFactory())[TVShowViewModel::class.java]
-        tvAdapter = TVAdapter(requireContext(), emptyList())
+//        viewModel = ViewModelProvider(this, TVShowViewModelFactory())[TVShowViewModel::class.java]
 
-        recyclerView.adapter = tvAdapter
 
-        getShowFromDatabase(requireContext())
-
-        if (getShowFromDatabase(requireContext()).isNotEmpty()) {
-            binding!!.tvEmptiness.visibility = View.INVISIBLE
+        GlobalScope.launch {
+            favShowAdapter = FavShowAdapter(requireContext(), emptyList())
+            favShows = getShowFromDatabase(requireContext())
+            if (favShows!!.isNotEmpty()) {
+                binding!!.tvEmptiness.visibility = View.INVISIBLE
+            }
+            binding!!.tvRecyclerView.visibility = View.VISIBLE
+            favShowAdapter.updateData(favShows!!)
+            recyclerView.adapter = favShowAdapter
         }
-        tvAdapter.updateData(getShowFromDatabase(requireContext()) as List<TVShowDetails>)
 
-/*        viewModel.tvLiveData.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is GenericApiResponse.Success -> {
-                    val movies = result.data
-                    // Gotta fix it to isNotEmpty()
-                    if (movies.isEmpty()) {
-                        binding!!.tvEmptiness.visibility = View.INVISIBLE
+
+        /*        viewModel.tvLiveData.observe(viewLifecycleOwner) { result ->
+                    when (result) {
+                        is GenericApiResponse.Success -> {
+                            val movies = result.data
+                            // Gotta fix it to isNotEmpty()
+                            if (movies.isEmpty()) {
+                                binding!!.tvEmptiness.visibility = View.INVISIBLE
+                            }
+                            tvAdapter.updateData(movies)
+                        }
+
+                        is GenericApiResponse.Error -> {
+                            showTopToast(
+                                requireContext(),
+                                "Sorry! something went wrong :(",
+                                "short",
+                                "neutral"
+                            )
+                        }
+
+                        else -> {
+                            showTopToast(requireContext(), "Sorry! 404 not found :(", "short", "neutral")
+                        }
                     }
-                    tvAdapter.updateData(movies)
                 }
 
-                is GenericApiResponse.Error -> {
-                    showTopToast(
-                        requireContext(),
-                        "Sorry! something went wrong :(",
-                        "short",
-                        "neutral"
-                    )
+                viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+                    if (isLoading) {
+                        loadingDialog.startFragmentLoading()
+                    } else {
+                        loadingDialog.dismissLoading()
+                    }
                 }
 
-                else -> {
-                    showTopToast(requireContext(), "Sorry! 404 not found :(", "short", "neutral")
-                }
-            }
-        }
+                updateUI()
 
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                loadingDialog.startFragmentLoading()
-            } else {
-                loadingDialog.dismissLoading()
-            }
-        }
+                handleClickEvent()*/
 
-        updateUI()
-
-        handleClickEvent()*/
-
-        binding!!.pageIndicator.text = pageNo.toString()
+//        binding!!.pageIndicator.text = pageNo.toString()
 //        viewModel.fetchTrendingTVShows(pageNo)
 
         return binding!!.root
