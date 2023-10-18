@@ -1,7 +1,6 @@
 package com.akash.moviedb.utils
 
 import android.content.Context
-import com.akash.moviedb.data.local.roomdb.entity.Show
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -11,7 +10,7 @@ fun isFavorite(applicationContext: Context?, id: Int): Boolean {
     GlobalScope.launch(Dispatchers.IO) {
         val show = getShowFromRoomDB(applicationContext!!)
         for (i in show.indices) {
-            if(id == show[i].id) {
+            if (id == show[i].id) {
                 answer = true
                 break
             }

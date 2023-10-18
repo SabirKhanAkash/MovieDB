@@ -14,6 +14,7 @@ import com.akash.moviedb.R
 import com.akash.moviedb.data.local.roomdb.entity.Show
 import com.akash.moviedb.utils.SharedPref
 import com.akash.moviedb.view.activity.SingleMovieActivity
+import com.akash.moviedb.view.activity.SingleTVActivity
 import com.bumptech.glide.Glide
 
 class FavShowAdapter(private val context: Context, private var show: List<Show>) :
@@ -38,16 +39,29 @@ class FavShowAdapter(private val context: Context, private var show: List<Show>)
 
     private fun populateItemRows(holder: MovieViewHolder, position: Int) {
         val show = show[position]
-        holder.movieTitle.text = show.title
+
+        if (show.name.isNullOrEmpty()) {
+            holder.movieTitle.text = show.title
+        } else {
+            holder.movieTitle.text = show.name
+        }
+
         val posterUrl = BuildConfig.POSTER_BASE_URL + show.poster_path
         Glide.with(holder.moviePoster)
             .load(posterUrl)
             .into(holder.moviePoster)
 
         holder.movieLayout.setOnClickListener {
+            val intent: Intent
             val selectedMovieId = show.id
-            val intent = Intent(context, SingleMovieActivity::class.java)
-            sharedPref.setInt(context, "selectedMovieId", selectedMovieId!!)
+            if (show.name.isNullOrEmpty()) {
+                intent = Intent(context, SingleMovieActivity::class.java)
+                sharedPref.setInt(context, "selectedMovieId", selectedMovieId!!)
+            } else {
+                intent = Intent(context, SingleTVActivity::class.java)
+                sharedPref.setInt(context, "selectedTVId", selectedMovieId!!)
+            }
+
             context.startActivity(intent)
         }
     }

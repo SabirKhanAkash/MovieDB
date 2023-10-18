@@ -2,7 +2,6 @@ package com.akash.moviedb.view.activity
 
 import GenericApiResponse
 import SingleMovieViewModel
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.BuildConfig
 import com.akash.moviedb.R
 import com.akash.moviedb.adapter.GenreListAdapter
-import com.akash.moviedb.data.local.roomdb.database.ShowDatabase
-import com.akash.moviedb.data.local.roomdb.entity.Show
 import com.akash.moviedb.databinding.ActivitySingleMovieBinding
-import com.akash.moviedb.model.MovieDetails
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.utils.SharedPref
 import com.akash.moviedb.utils.addShowToDatabase

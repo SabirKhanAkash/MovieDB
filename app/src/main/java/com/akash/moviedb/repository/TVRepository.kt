@@ -14,7 +14,7 @@ class TVRepository(private val service: TrendingTVShowsAPI) {
         return service.getSearchedTVShows(
             BuildConfig.THE_MOVIE_DB_API_KEY,
             query,
-            "true",
+            "false",
             "en-US",
             pageNo
         )

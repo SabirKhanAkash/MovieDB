@@ -1,6 +1,5 @@
 package com.akash.moviedb.view.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.akash.moviedb.adapter.FavShowAdapter
-import com.akash.moviedb.data.local.roomdb.database.ShowDatabase
 import com.akash.moviedb.data.local.roomdb.entity.Show
 import com.akash.moviedb.databinding.FragmentFavoriteBinding
 import com.akash.moviedb.utils.LoadingDialog
