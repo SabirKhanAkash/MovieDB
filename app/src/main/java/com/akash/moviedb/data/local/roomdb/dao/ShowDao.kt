@@ -9,7 +9,7 @@ import com.akash.moviedb.data.local.roomdb.entity.Show
 
 @Dao
 interface ShowDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun insert(show: Show)
 
     @Delete

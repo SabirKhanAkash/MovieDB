@@ -46,7 +46,7 @@ class TVAdapter(private val context: Context, private var tv_shows: List<TVShowD
         holder.movieLayout.setOnClickListener {
             val selectedTVId = tv_show.id
             val intent = Intent(context, SingleTVActivity::class.java)
-            sharedPref.setInt(context, "selectedTVId", selectedTVId)
+            sharedPref.setInt(context, "selectedTVId", selectedTVId!!)
             context.startActivity(intent)
         }
     }

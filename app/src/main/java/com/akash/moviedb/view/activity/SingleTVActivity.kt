@@ -14,10 +14,15 @@ import com.akash.moviedb.adapter.GenreListAdapter
 import com.akash.moviedb.databinding.ActivitySingleTvBinding
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.utils.SharedPref
+import com.akash.moviedb.utils.addShowToDatabase
+import com.akash.moviedb.utils.removeShowFromDatabase
 import com.akash.moviedb.viewmodel.viewmodelfactory.SingleTVShowViewModelFactory
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import showTopToast
 
 class SingleTVActivity : AppCompatActivity() {
@@ -48,7 +53,7 @@ class SingleTVActivity : AppCompatActivity() {
             when (result) {
                 is GenericApiResponse.Success -> {
                     val resultData = result.data
-                    genreListAdapter.updateData(resultData.genres)
+                    genreListAdapter.updateData(resultData.genres!!)
                     Glide.with(applicationContext)
                         .load(BuildConfig.POSTER_BASE_URL + resultData.backdrop_path).into(
                             binding!!.moviePoster
@@ -71,6 +76,9 @@ class SingleTVActivity : AppCompatActivity() {
 
                     binding!!.favBtn.setOnClickListener {
                         if (favChecked) {
+                            GlobalScope.launch(Dispatchers.IO) {
+                                removeShowFromDatabase(applicationContext, resultData)
+                            }
                             showTopToast(
                                 applicationContext,
                                 "Removed from favorites",
@@ -85,6 +93,9 @@ class SingleTVActivity : AppCompatActivity() {
                             )
                             favChecked = false
                         } else {
+                            GlobalScope.launch(Dispatchers.IO) {
+                                addShowToDatabase(applicationContext, resultData)
+                            }
                             showTopToast(
                                 applicationContext,
                                 "Added to favorites",

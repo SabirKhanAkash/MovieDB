@@ -18,6 +18,9 @@ import com.akash.moviedb.databinding.ActivitySingleMovieBinding
 import com.akash.moviedb.model.MovieDetails
 import com.akash.moviedb.utils.LoadingDialog
 import com.akash.moviedb.utils.SharedPref
+import com.akash.moviedb.utils.addShowToDatabase
+import com.akash.moviedb.utils.isFavorite
+import com.akash.moviedb.utils.removeShowFromDatabase
 import com.akash.moviedb.viewmodel.viewmodelfactory.SingleMovieViewModelFactory
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -29,7 +32,7 @@ import showTopToast
 
 
 class SingleMovieActivity : AppCompatActivity() {
-    private var favChecked: Boolean = false
+    private var favChecked: Boolean? = null
     private val loadingDialog: LoadingDialog = LoadingDialog(this@SingleMovieActivity)
     private val sharedPref: SharedPref = SharedPref()
     private var binding: ActivitySingleMovieBinding? = null
@@ -40,6 +43,8 @@ class SingleMovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySingleMovieBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
+
+
         lifecycle.addObserver(binding!!.trailerView)
 
         val selectedMovieId = sharedPref.getInt(applicationContext, "selectedMovieId")
@@ -56,7 +61,8 @@ class SingleMovieActivity : AppCompatActivity() {
             when (result) {
                 is GenericApiResponse.Success -> {
                     val resultData = result.data
-                    genreListAdapter.updateData(resultData.genres)
+                    genreListAdapter.updateData(resultData.genres!!)
+                    favChecked = isFavorite(applicationContext, resultData.id!!)
 
                     Glide.with(applicationContext)
                         .load(BuildConfig.POSTER_BASE_URL + resultData.backdrop_path).into(
@@ -79,9 +85,9 @@ class SingleMovieActivity : AppCompatActivity() {
                     binding!!.movieOverview.text = resultData.overview
 
                     binding!!.favBtn.setOnClickListener {
-                        if (favChecked) {
-                            GlobalScope.launch {
-                                removeShowToDatabase(applicationContext, resultData as Show)
+                        if (favChecked!!) {
+                            GlobalScope.launch(Dispatchers.IO) {
+                                removeShowFromDatabase(applicationContext, resultData)
                             }
                             showTopToast(
                                 applicationContext,
@@ -97,7 +103,7 @@ class SingleMovieActivity : AppCompatActivity() {
                             )
                             favChecked = false
                         } else {
-                            GlobalScope.launch {
+                            GlobalScope.launch(Dispatchers.IO) {
                                 addShowToDatabase(applicationContext, resultData)
                             }
                             showTopToast(
@@ -180,7 +186,7 @@ class SingleMovieActivity : AppCompatActivity() {
                     })
 
                     binding!!.favBtn.setOnClickListener {
-                        if (favChecked) {
+                        if (favChecked!!) {
                             showTopToast(
                                 applicationContext,
                                 "Removed from favorites",
@@ -235,50 +241,5 @@ class SingleMovieActivity : AppCompatActivity() {
             }
         }
         sharedPref.clearDataOnKey(applicationContext, "selectedMovieId")
-    }
-
-    private fun removeShowToDatabase(context: Context, show: Show) {
-        val db = ShowDatabase.getDatabase(context)
-        val favoriteShowDao = db.showDao()
-
-        GlobalScope.launch(Dispatchers.IO) {
-            favoriteShowDao.delete(show)
-        }
-    }
-
-    fun addShowToDatabase(context: Context, movieDetails: MovieDetails) {
-        val show = movieDetailsToShow(movieDetails)
-        val db = ShowDatabase.getDatabase(context)
-        val favoriteShowDao = db.showDao()
-
-        GlobalScope.launch(Dispatchers.IO) {
-            favoriteShowDao.insert(show)
-        }
-    }
-
-    fun movieDetailsToShow(movieDetails: MovieDetails): Show {
-        return Show(
-            id = movieDetails.id,
-            adult = movieDetails.adult,
-            backdrop_path = movieDetails.backdrop_path,
-            title = movieDetails.title,
-            original_language = movieDetails.original_language,
-            original_title = movieDetails.original_title,
-            overview = movieDetails.overview,
-            poster_path = movieDetails.poster_path,
-            media_type = movieDetails.media_type,
-            popularity = movieDetails.popularity,
-            release_date = movieDetails.release_date,
-            video = movieDetails.video,
-            vote_average = movieDetails.vote_average,
-            vote_count = movieDetails.vote_count,
-            budget = movieDetails.budget,
-            homepage = movieDetails.homepage,
-            imdb_id = movieDetails.imdb_id,
-            revenue = movieDetails.revenue,
-            runtime = movieDetails.runtime,
-            status = movieDetails.status,
-            tagline = movieDetails.tagline
-        )
     }
 }

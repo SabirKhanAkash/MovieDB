@@ -26,8 +26,12 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromIntArrayList(list: ArrayList<Int>): Int {
-        return list[0]
+    fun fromIntArrayList(list: ArrayList<Int>?): Int {
+        return if (list.isNullOrEmpty()) {
+            0
+        } else {
+            list[0]
+        }
     }
 
     @TypeConverter

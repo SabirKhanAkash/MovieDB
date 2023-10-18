@@ -2,10 +2,11 @@ package com.akash.moviedb.data.local.roomdb.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.akash.moviedb.model.Genre
 
 @Entity(tableName = "favorite_shows")
 data class Show(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: Int?,
     var adult: Boolean?,
     var backdrop_path: String?,
     var title: String?,
@@ -21,7 +22,7 @@ data class Show(
     var vote_count: Int?,
 
     var budget: Int?,
-//    var genres: ArrayList<Genre>,
+    var genres: ArrayList<Genre>?,
     var homepage: String?,
     var imdb_id: String?,
     var revenue: Int?,
@@ -29,13 +30,13 @@ data class Show(
     var status: String?,
     var tagline: String?,
 
-//    var name: String,
-//    var first_air_date: String,
-//
-////    var episode_run_time: ArrayList<Int>,
-//    var in_production: Boolean,
-//    var last_air_date: String,
-//    var number_of_episodes: Int,
-//    var number_of_seasons: Int,
-//    var type: String
+    var name: String?,
+    var first_air_date: String?,
+
+    var episode_run_time: ArrayList<Int>?,
+    var in_production: Boolean?,
+    var last_air_date: String?,
+    var number_of_episodes: Int?,
+    var number_of_seasons: Int?,
+    var type: String?
 )
