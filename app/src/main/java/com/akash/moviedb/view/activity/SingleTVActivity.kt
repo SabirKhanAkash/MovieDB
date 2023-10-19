@@ -61,6 +61,8 @@ class SingleTVActivity : AppCompatActivity() {
                     binding!!.movieTitle.text = resultData.original_name
                     binding!!.type.text = resultData.type
                     binding!!.popularity.text = "Popularity Score: ${resultData.popularity}"
+                    binding!!.rating.text =
+                        "Rating: ${resultData.vote_average} (${resultData.vote_count})"
                     if (resultData.episode_run_time.toString() == "[]")
                         binding!!.runtime.text = "N/A"
                     else

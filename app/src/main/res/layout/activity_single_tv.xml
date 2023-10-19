@@ -86,6 +86,16 @@
                     android:textStyle="normal" />
 
                 <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="Rating Here"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+                <TextView
                     android:id="@+id/popularity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

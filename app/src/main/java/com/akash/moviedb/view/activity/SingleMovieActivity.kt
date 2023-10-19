@@ -64,17 +64,12 @@ class SingleMovieActivity : AppCompatActivity() {
                         .load(BuildConfig.POSTER_BASE_URL + resultData.backdrop_path).into(
                             binding!!.moviePoster
                         )
-                    binding!!.trailerView.addYouTubePlayerListener(object :
-                        AbstractYouTubePlayerListener() {
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-                            val videoId = "AjLKTz81bj8"
-                            youTubePlayer.loadVideo(videoId, 0f)
-                        }
-                    })
 
                     binding!!.movieTitle.text = resultData.original_title
                     binding!!.tagline.text = resultData.tagline
                     binding!!.popularity.text = "Popularity Score: ${resultData.popularity}"
+                    binding!!.rating.text =
+                        "Rating: ${resultData.vote_average} (${resultData.vote_count})"
                     binding!!.runtime.text = resultData.runtime.toString() + " min"
                     binding!!.language.text = resultData.original_language
                     binding!!.releaseDate.text = resultData.release_date
